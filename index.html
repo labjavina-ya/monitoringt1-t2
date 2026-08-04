@@ -10,11 +10,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Monitoring">
+    <meta name="apple-touch-fullscreen" content="yes">
     <meta name="theme-color" content="#020202">
-    <meta name="supported-color-schemes" content="dark">
     
     <style>
-        /* RESET CSS EKSTREM UNTUK IOS */
         * {
             margin: 0 !important;
             padding: 0 !important;
@@ -25,34 +24,40 @@
         html, body {
             width: 100% !important;
             height: 100% !important;
-            height: 100dvh !important; /* Tinggi dinamis iOS */
+            /* Trik khusus iOS agar tinggi memenuhi layar */
+            height: 100dvh !important;
+            height: -webkit-fill-available !important;
             background-color: #020202 !important;
             overflow: hidden !important;
-            /* Paksa seluruh halaman mengunci di 4 sudut layar */
             position: fixed !important;
             top: 0 !important;
             left: 0 !important;
             right: 0 !important;
             bottom: 0 !important;
-            inset: 0 !important; /* Trik memaksa masuk ke semua sudut */
             overscroll-behavior: none !important;
         }
 
         #gasFrame {
-            /* Paksa iframe juga mengunci di 4 sudut layar */
             position: fixed !important;
             top: 0 !important;
             left: 0 !important;
             right: 0 !important;
+            /* Paksa iframe ke bawah sampai batas ujung layar */
             bottom: 0 !important;
-            inset: 0 !important;
             width: 100% !important;
             height: 100% !important;
+            height: 100dvh !important;
+            height: -webkit-fill-available !important;
             border: 0 !important;
             margin: 0 !important;
             padding: 0 !important;
             background-color: #020202 !important;
             display: block !important;
+            
+            /* TRIK MENEMBUS CELAH BAWAH iOS */
+            /* Tarik iframe ke bawah melewati area aman home indicator */
+            padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+            margin-bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
         }
     </style>
 </head>
