@@ -5,33 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Monitoring TRANS 1 & 2</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#020202">
-    <meta name="mobile-web-app-capable" content="yes">
     <style>
-        html, body {
-            margin: 0; 
-            padding: 0; 
-            width: 100vw; 
-            height: 100vh; /* Fallback */
-            height: 100dvh; /* Dinamis untuk mobile, menghindari address bar bug */
-            overflow: hidden;
-            background-color: #020202; /* Warna dasar sama dengan aplikasi */
-            position: fixed; /* Mencegah body bergeser saat keyboard muncul */
-            top: 0; left: 0; right: 0; bottom: 0;
-            overscroll-behavior: none; /* Matikan pull-to-refresh */
-        }
-        
-        iframe {
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; 
-            height: 100%; 
-            border: none; 
-            margin: 0; 
+        /* RESET CSS AGRESIF UNTUK iOS */
+        * {
+            margin: 0;
             padding: 0;
-            display: block;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100vh; /* Fallback browser lama */
+            height: 100dvh; /* Dinamis untuk iOS */
             background-color: #020202;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* Paksa menghilangkan padding bawaan iOS */
+            padding-top: 0 !important; 
+            padding-bottom: 0 !important;
+            overscroll-behavior: none;
+        }
+
+        #gasFrame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background-color: #020202;
+            display: block;
+            /* Pastikan iframe tidak punya batas aman */
+            padding-top: env(safe-area-inset-top, 0px);
+            margin-top: calc(-1 * env(safe-area-inset-top, 0px));
         }
     </style>
 </head>
