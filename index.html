@@ -2,68 +2,48 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <!-- viewport-fit=cover tetap dipertahankan agar bisa menembus atas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Monitoring TRANS 1 & 2</title>
     
-    <!-- Tag PWA wajib untuk iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Monitoring">
-    <meta name="apple-touch-fullscreen" content="yes">
     <meta name="theme-color" content="#020202">
     
     <style>
         * {
-            margin: 0 !important;
-            padding: 0 !important;
-            box-sizing: border-box !important;
-            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html, body {
-            width: 100% !important;
-            height: 100% !important;
-            /* Trik khusus iOS agar tinggi memenuhi layar */
-            height: 100dvh !important;
-            height: -webkit-fill-available !important;
-            background-color: #020202 !important;
-            overflow: hidden !important;
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            overscroll-behavior: none !important;
+            width: 100%;
+            height: 100%;
+            background-color: #020202;
+            overflow: hidden; /* Cegah scroll */
+            position: fixed;
+            top: 0;
+            left: 0;
+            overscroll-behavior: none;
         }
 
         #gasFrame {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            /* Paksa iframe ke bawah sampai batas ujung layar */
-            bottom: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            height: 100dvh !important;
-            height: -webkit-fill-available !important;
-            border: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            background-color: #020202 !important;
-            display: block !important;
-            
-            /* TRIK MENEMBUS CELAH BAWAH iOS */
-            /* Tarik iframe ke bawah melewati area aman home indicator */
-            padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-            margin-bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Paksa 100% tanpa trik aneh */
+            border: 0;
+            background-color: #020202;
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <!-- Iframe Full Screen -->
     <iframe 
         src="https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec" 
         id="gasFrame" 
