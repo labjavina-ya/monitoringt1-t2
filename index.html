@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Monitoring TRANS 1 & 2</title>
+    
+    <!-- Tag PWA wajib untuk iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Monitoring">
     <meta name="theme-color" content="#020202">
+    
     <style>
-        /* RESET CSS AGRESIF UNTUK iOS */
         * {
             margin: 0;
             padding: 0;
@@ -18,40 +21,37 @@
         }
 
         html, body {
-            width: 100%;
-            height: 100vh; /* Fallback browser lama */
-            height: 100dvh; /* Dinamis untuk iOS */
-            background-color: #020202;
-            overflow: hidden;
-            position: fixed;
+            position: fixed; /* Kunci seluruh halaman */
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            /* Paksa menghilangkan padding bawaan iOS */
-            padding-top: 0 !important; 
-            padding-bottom: 0 !important;
+            width: 100%;
+            /* Jangan gunakan height: 100dvh, biarkan top & bottom 0 yang mengatur */
+            background-color: #020202;
+            overflow: hidden;
             overscroll-behavior: none;
         }
 
         #gasFrame {
-            position: absolute;
+            position: absolute; /* Paksa menempel ke 4 sudut layar */
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
             width: 100%;
             height: 100%;
             border: 0;
+            margin: 0;
+            padding: 0;
             background-color: #020202;
             display: block;
-            /* Pastikan iframe tidak punya batas aman */
-            padding-top: env(safe-area-inset-top, 0px);
-            margin-top: calc(-1 * env(safe-area-inset-top, 0px));
         }
     </style>
 </head>
 <body>
 
-    <!-- Iframe Full Screen dengan izin Kamera & Fullscreen -->
+    <!-- Iframe Full Screen -->
     <iframe 
         src="https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec" 
         id="gasFrame" 
@@ -61,10 +61,8 @@
     </iframe>
 
     <script>
-        // Script untuk menerima warna dari GAS secara dinamis
         window.addEventListener('message', function(event) {
             if (event.data && event.data.type === 'SET_BG_COLOR') {
-                // Terapkan warna ke background halaman GitHub Pages
                 document.documentElement.style.backgroundColor = event.data.color;
                 document.body.style.backgroundColor = event.data.color;
                 
@@ -73,7 +71,6 @@
                     frame.style.backgroundColor = event.data.color;
                 }
                 
-                // Ubah juga warna Theme-Color agar status bar HP menyesuaikan
                 const themeMeta = document.querySelector('meta[name="theme-color"]');
                 if (themeMeta) {
                     themeMeta.setAttribute('content', event.data.color);
