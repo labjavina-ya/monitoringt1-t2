@@ -374,11 +374,11 @@
 
     <!-- MODAL FORM -->
     <transition name="modal">
-      <div v-if="isAppReady && isModalOpen" class="modal-overlay fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" @click.self="closeModal">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative">
+      <div v-if="isAppReady && isModalOpen" class="modal-overlay fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="formBackdrop" @click.self="closeModal">
+        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="formSheet">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           
-          <div v-swipe-down="closeModal" class="modal-header flex items-center justify-between mb-6 mt-3 pb-4 border-b border-white/10">
+          <div class="modal-header flex items-center justify-between mb-6 mt-3 pb-4 border-b border-white/10 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div>
               <p class="text-xs text-frost/70 tracking-widest font-medium">FORM MONITORING</p>
               <h3 class="font-display text-xl font-bold text-white">{{ modalTitle }}</h3>
@@ -528,10 +528,10 @@
 
     <!-- MODAL RIWAYAT SYNC -->
     <transition name="modal">
-      <div v-if="isAppReady && isSyncModalOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" @click.self="isSyncModalOpen = false">
-        <div v-swipe-down="() => isSyncModalOpen = false" class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative">
+      <div v-if="isAppReady && isSyncModalOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="syncBackdrop" @click.self="isSyncModalOpen = false">
+        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="syncSheet">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
-          <div class="flex items-center justify-between mb-6 mt-3">
+          <div class="modal-header flex items-center justify-between mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div><p class="text-xs text-frost/70 tracking-widest font-medium">RIWAYAT SERVER</p><h3 class="font-display text-xl font-bold text-white">Data Sync</h3></div>
             <button @click="isSyncModalOpen = false" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 active:scale-90 transition"><iconify-icon icon="ph:x-bold" width="20"></iconify-icon></button>
           </div>
@@ -551,10 +551,10 @@
 
     <!-- MODAL NOTIFIKASI -->
     <transition name="modal">
-      <div v-if="isAppReady && isNotifOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" @click.self="isNotifOpen = false">
-        <div v-swipe-down="() => isNotifOpen = false" class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative">
+      <div v-if="isAppReady && isNotifOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="notifBackdrop" @click.self="isNotifOpen = false">
+        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="notifSheet">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
-          <div class="flex items-center justify-between mb-6 mt-3">
+          <div class="modal-header flex items-center justify-between mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div><p class="text-xs text-frost/70 tracking-widest font-medium">AKTIVITAS</p><h3 class="font-display text-xl font-bold text-white">Notifikasi Terbaru</h3></div>
             <button @click="isNotifOpen = false" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 active:scale-90 transition"><iconify-icon icon="ph:x-bold" width="20"></iconify-icon></button>
           </div>
@@ -574,10 +574,10 @@
 
     <!-- MODAL LOGOUT -->
     <transition name="modal">
-      <div v-if="isAppReady && isLogoutModalOpen" class="modal-overlay fixed inset-0 z-[70] flex items-center justify-center bg-night/80 backdrop-blur-md px-8" @click.self="isLogoutModalOpen = false">
-        <div v-swipe-down="() => isLogoutModalOpen = false" class="glass-modal-inner glass-panel w-full max-w-sm rounded-3xl p-6 relative">
+      <div v-if="isAppReady && isLogoutModalOpen" class="modal-overlay fixed inset-0 z-[70] flex items-center justify-center bg-night/80 backdrop-blur-md px-8" ref="logoutBackdrop" @click.self="isLogoutModalOpen = false">
+        <div class="glass-modal-inner glass-panel w-full max-w-sm rounded-3xl p-6 relative" ref="logoutSheet">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
-          <div class="text-center mb-6 mt-3">
+          <div class="modal-header text-center mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div class="w-14 h-14 mx-auto rounded-2xl bg-red-500/15 flex items-center justify-center border border-red-500/30 mb-4 shadow-[0_0_20px_rgba(239,68,68,0.2)]"><iconify-icon icon="ph:warning-circle-bold" width="32" class="text-red-400"></iconify-icon></div>
             <h3 class="font-display text-lg font-bold text-white">Konfirmasi Keluar</h3>
             <p class="text-sm text-white/60 mt-1">Apakah Anda yakin ingin mengakhiri sesi ini?</p>
@@ -632,21 +632,79 @@
         const formError = ref('');
         const formData = reactive({});
         
+        // Refs for Swipe Down
+        const formSheet = ref(null); const formBackdrop = ref(null);
+        const syncSheet = ref(null); const syncBackdrop = ref(null);
+        const notifSheet = ref(null); const notifBackdrop = ref(null);
+        const logoutSheet = ref(null); const logoutBackdrop = ref(null);
+        
+        const touchStartY = ref(0);
+        let currentSheet = null; let currentBackdrop = null;
+
         onMounted(() => { nextTick(() => { isAppReady.value = true; }); });
         
+        // === SWIPE DOWN HANDLERS (Adopted from Reference) ===
+        const onTouchStart = (e) => {
+          touchStartY.value = e.touches[0].clientY;
+          
+          if (isModalOpen.value) { currentSheet = formSheet.value; currentBackdrop = formBackdrop.value; }
+          else if (isSyncModalOpen.value) { currentSheet = syncSheet.value; currentBackdrop = syncBackdrop.value; }
+          else if (isNotifOpen.value) { currentSheet = notifSheet.value; currentBackdrop = notifBackdrop.value; }
+          else if (isLogoutModalOpen.value) { currentSheet = logoutSheet.value; currentBackdrop = logoutBackdrop.value; }
+
+          if (currentSheet) {
+            currentSheet.style.transition = 'none'; 
+            if(currentBackdrop) currentBackdrop.style.transition = 'none';
+          }
+        };
+        
+        const onTouchMove = (e) => {
+          if (!currentSheet) return;
+          let diff = e.touches[0].clientY - touchStartY.value;
+          if (diff > 0) {
+            e.preventDefault(); 
+            currentSheet.style.transform = `translateY(${diff}px)`;
+            if(currentBackdrop) currentBackdrop.style.opacity = 1 - (diff / 500);
+          }
+        };
+        
+        const onTouchEnd = () => {
+          if (!currentSheet) return;
+          
+          currentSheet.style.transition = 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease'; 
+          if(currentBackdrop) currentBackdrop.style.transition = 'opacity 0.3s ease';
+          
+          let currentTranslate = 0;
+          if (currentSheet.style.transform) {
+            let match = currentSheet.style.transform.match(/-?\d+/);
+            if (match) currentTranslate = parseInt(match[0]);
+          }
+
+          if (currentTranslate > 100) {
+            if (isModalOpen.value) closeModal();
+            if (isSyncModalOpen.value) isSyncModalOpen.value = false;
+            if (isNotifOpen.value) isNotifOpen.value = false;
+            if (isLogoutModalOpen.value) isLogoutModalOpen.value = false;
+          } else {
+            currentSheet.style.transform = 'translateY(0)';
+            if(currentBackdrop) currentBackdrop.style.opacity = 1;
+          }
+          
+          currentSheet = null;
+          currentBackdrop = null;
+        };
+
         // Helper API Fetch
         const fetchAPI = async (action, payload = null) => {
           try {
             if (payload) {
-              // POST Request
               const res = await fetch(API_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Pakai text/plain untuk bypass CORS preflight GAS
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({ action, ...payload })
               });
               return await res.json();
             } else {
-              // GET Request
               const res = await fetch(`${API_URL}?action=${action}`);
               return await res.json();
             }
@@ -879,60 +937,6 @@
           if (s.includes('BERHASIL')) return 'text-green-400'; if (s.includes('GAGAL') || s.includes('MATIO')) return 'text-red-400'; return 'text-yellow-400';
         };
 
-        // === DIRECTIVE: SWIPE DOWN TO DISMISS ===
-        const vSwipeDown = {
-          mounted(el, binding) {
-            let startY = 0; let isDragging = false; let currentY = 0;
-            
-            const handleStart = (e) => {
-              if (e.target.closest('input, textarea, select')) return;
-              startY = e.touches[0].clientY; 
-              isDragging = true; 
-              const container = el.closest('.glass-modal-inner') || el;
-              if (container) {
-                container.style.transition = 'none';
-                container.style.touchAction = 'none';
-              }
-            };
-            
-            const handleMove = (e) => {
-              if (!isDragging) return;
-              currentY = e.touches[0].clientY; const deltaY = currentY - startY;
-              const container = el.closest('.glass-modal-inner') || el;
-              if (deltaY > 0 && container) {
-                e.preventDefault(); 
-                container.style.transform = `translateY(${deltaY}px)`; 
-                container.style.opacity = Math.max(0.2, 1 - (deltaY / 500));
-              }
-            };
-            
-            const handleEnd = (e) => {
-              const container = el.closest('.glass-modal-inner') || el;
-              if (container) {
-                container.style.touchAction = 'pan-y'; 
-                container.style.transition = ''; 
-                container.style.transform = ''; 
-                container.style.opacity = '';
-              }
-              if (!isDragging) return;
-              isDragging = false; 
-              const deltaY = e.changedTouches[0].clientY - startY;
-              if (deltaY > 100) { if (typeof binding.value === 'function') binding.value(); }
-            };
-            
-            el._start = handleStart; el._move = handleMove; el._end = handleEnd;
-            el.addEventListener('touchstart', el._start, { passive: true });
-            el.addEventListener('touchmove', el._move, { passive: false });
-            el.addEventListener('touchend', el._end, { passive: true });
-            el.addEventListener('touchcancel', el._end, { passive: true });
-          },
-          unmounted(el) {
-            if (el._start) el.removeEventListener('touchstart', el._start);
-            if (el._move) el.removeEventListener('touchmove', el._move);
-            if (el._end) { el.removeEventListener('touchend', el._end); el.removeEventListener('touchcancel', el._end); }
-          }
-        };
-
         return {
           isAppReady, isLoggedIn, isLoggingIn, isFetching, isSubmitting, loginError, loginForm, handleLogin, confirmLogout,
           currentUser, activeTab, activeTabData, searchQuery, accessibleTabs, mainContainer,
@@ -941,7 +945,10 @@
           recentActivities, hasUnreadNotifs, openNotifications,
           modalContext, modalTitle, formError, formData, sliderStyle, increment, decrement,
           openFormModal, closeModal, handleFileUpload, submitMonitoringForm, submitTrans3Form,
-          syncedData, getTabColor, vSwipeDown
+          syncedData, getTabColor,
+          // Swipe Handlers & Refs
+          formSheet, formBackdrop, syncSheet, syncBackdrop, notifSheet, notifBackdrop, logoutSheet, logoutBackdrop,
+          onTouchStart, onTouchMove, onTouchEnd
         };
       }
     }).mount('#app');
