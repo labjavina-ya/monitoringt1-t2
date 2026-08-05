@@ -375,10 +375,10 @@
     <!-- MODAL FORM -->
     <transition name="modal">
       <div v-if="isAppReady && isModalOpen" class="modal-overlay fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" @click.self="closeModal">
-        <div v-swipe-down="closeModal" class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative">
+        <div v-swipe-down:header="closeModal" class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           
-          <div class="flex items-center justify-between mb-6 mt-3 pb-4 border-b border-white/10">
+          <div class="modal-header flex items-center justify-between mb-6 mt-3 pb-4 border-b border-white/10">
             <div>
               <p class="text-xs text-frost/70 tracking-widest font-medium">FORM MONITORING</p>
               <h3 class="font-display text-xl font-bold text-white">{{ modalTitle }}</h3>
@@ -883,26 +883,35 @@
         const vSwipeDown = {
           mounted(el, binding) {
             let startY = 0; let isDragging = false; let currentY = 0;
+            const isHeaderOnly = binding.arg === 'header';
+            
             const handleStart = (e) => {
               if (e.target.closest('input, textarea, select')) return;
+              if (isHeaderOnly && !e.target.closest('.modal-header')) return;
+              
               startY = e.touches[0].clientY; isDragging = true; el.style.transition = 'none';
-              if (el.scrollTop <= 0) { el.style.touchAction = 'none'; }
+              if (isHeaderOnly || el.scrollTop <= 0) {
+                el.style.touchAction = 'none';
+              }
             };
+            
             const handleMove = (e) => {
               if (!isDragging) return;
               currentY = e.touches[0].clientY; const deltaY = currentY - startY;
-              if (deltaY > 0 && el.scrollTop <= 0) {
+              if (deltaY > 0 && (isHeaderOnly || el.scrollTop <= 0)) {
                 e.preventDefault(); el.style.transform = `translateY(${deltaY}px)`; el.style.opacity = Math.max(0.2, 1 - (deltaY / 500));
               } else if (deltaY < 0) {
                 isDragging = false; el.style.transform = ''; el.style.opacity = ''; el.style.touchAction = 'pan-y';
               }
             };
+            
             const handleEnd = (e) => {
               el.style.touchAction = 'pan-y'; if (!isDragging) return;
               isDragging = false; el.style.transition = ''; el.style.transform = ''; el.style.opacity = '';
               const deltaY = e.changedTouches[0].clientY - startY;
               if (deltaY > 100) { if (typeof binding.value === 'function') binding.value(); }
             };
+            
             el._start = handleStart; el._move = handleMove; el._end = handleEnd;
             el.addEventListener('touchstart', el._start, { passive: true });
             el.addEventListener('touchmove', el._move, { passive: false });
