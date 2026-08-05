@@ -2,7 +2,11 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#020202">
   <title>Monitoring App</title>
 
   <!-- Tailwind CSS CDN -->
@@ -104,7 +108,7 @@
     </div>
 
     <!-- LOGIN LAYER -->
-    <div v-if="!isLoggedIn" class="absolute inset-0 z-50 flex flex-col justify-center items-center px-8">
+    <div v-if="!isLoggedIn" class="absolute inset-0 z-50 flex flex-col justify-center items-center px-8" style="padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom);">
       <div class="w-full max-w-sm">
         <div class="text-center mb-10">
           <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl glass-panel mb-4 p-2 shadow-2xl">
@@ -130,7 +134,7 @@
                 <iconify-icon icon="ph:lock-bold" width="20" class="text-white/40"></iconify-icon>
               </div>
               <input v-model="loginForm.password" type="password" class="w-full pl-11 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-2xl text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-frost/50 transition-all" placeholder="Masukkan password" @keyup.enter="handleLogin">
-            </div>
+              </div>
           </div>
           <div v-if="loginError" class="text-red-400 text-xs text-center bg-red-500/10 py-2 rounded-xl border border-red-500/20">{{ loginError }}</div>
           <button @click="handleLogin" :disabled="isLoggingIn" class="w-full py-3.5 rounded-2xl bg-frost text-night font-bold text-sm hover:bg-white/80 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(178,213,229,0.3)]">
@@ -142,7 +146,7 @@
     </div>
 
     <!-- MAIN APP LAYOUT -->
-    <main ref="mainContainer" v-if="isLoggedIn" @scroll.passive="handleScroll" class="relative z-10 max-w-md mx-auto h-[100dvh] overflow-y-auto pb-28 px-5 pt-12" style="-webkit-overflow-scrolling: touch; overscroll-behavior: contain;">
+    <main ref="mainContainer" v-if="isLoggedIn" @scroll.passive="handleScroll" class="relative z-10 max-w-md mx-auto h-[100dvh] overflow-y-auto px-5" style="-webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding-top: calc(3rem + env(safe-area-inset-top)); padding-bottom: calc(7rem + env(safe-area-inset-bottom));">
       <header class="mb-6 shrink-0">
         <div class="flex items-center justify-between mb-5">
           <div class="flex items-center gap-3">
@@ -363,7 +367,7 @@
     </main>
 
     <!-- Bottom Navigation -->
-    <nav v-if="isLoggedIn" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 px-4 pb-4 pt-2 pointer-events-none">
+    <nav v-if="isLoggedIn" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 px-4 pt-2 pointer-events-none" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom));">
       <div class="glass-nav rounded-3xl flex justify-around items-center h-16 px-2 pointer-events-auto">
         <button v-for="tab in accessibleTabs" :key="tab.id" @click="changeTab(tab.id)" :style="activeTab === tab.id ? { backgroundColor: `${tab.color}30`, borderColor: `${tab.color}80`, boxShadow: `0 0 20px ${tab.glow}, inset 0 2px 2px 0 ${tab.color}66` } : {}" class="flex-1 flex flex-col items-center justify-center h-12 rounded-2xl active:scale-90 transition-all duration-300 border border-transparent">
           <iconify-icon :icon="tab.icon" width="24" :style="{ color: activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.5)' }"></iconify-icon>
@@ -375,7 +379,7 @@
     <!-- MODAL FORM -->
     <transition name="modal">
       <div v-if="isAppReady && isModalOpen" class="modal-overlay fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="formBackdrop" @click.self="closeModal">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="formSheet">
+        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="formSheet" style="padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           
           <div class="modal-header flex items-center justify-between mb-6 mt-3 pb-4 border-b border-white/10 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
@@ -529,7 +533,7 @@
     <!-- MODAL RIWAYAT SYNC -->
     <transition name="modal">
       <div v-if="isAppReady && isSyncModalOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="syncBackdrop" @click.self="isSyncModalOpen = false">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="syncSheet">
+        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="syncSheet" style="padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           <div class="modal-header flex items-center justify-between mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div><p class="text-xs text-frost/70 tracking-widest font-medium">RIWAYAT SERVER</p><h3 class="font-display text-xl font-bold text-white">Data Sync</h3></div>
@@ -552,7 +556,7 @@
     <!-- MODAL NOTIFIKASI -->
     <transition name="modal">
       <div v-if="isAppReady && isNotifOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="notifBackdrop" @click.self="isNotifOpen = false">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="notifSheet">
+        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="notifSheet" style="padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           <div class="modal-header flex items-center justify-between mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div><p class="text-xs text-frost/70 tracking-widest font-medium">AKTIVITAS</p><h3 class="font-display text-xl font-bold text-white">Notifikasi Terbaru</h3></div>
@@ -575,7 +579,7 @@
     <!-- MODAL LOGOUT -->
     <transition name="modal">
       <div v-if="isAppReady && isLogoutModalOpen" class="modal-overlay fixed inset-0 z-[70] flex items-center justify-center bg-night/80 backdrop-blur-md px-8" ref="logoutBackdrop" @click.self="isLogoutModalOpen = false">
-        <div class="glass-modal-inner glass-panel w-full max-w-sm rounded-3xl p-6 relative" ref="logoutSheet">
+        <div class="glass-modal-inner glass-panel w-full max-w-sm rounded-3xl p-6 relative" ref="logoutSheet" style="padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           <div class="modal-header text-center mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div class="w-14 h-14 mx-auto rounded-2xl bg-red-500/15 flex items-center justify-center border border-red-500/30 mb-4 shadow-[0_0_20px_rgba(239,68,68,0.2)]"><iconify-icon icon="ph:warning-circle-bold" width="32" class="text-red-400"></iconify-icon></div>
