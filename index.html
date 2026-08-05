@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Monitoring App</title>
 
   <!-- Tailwind CSS CDN -->
@@ -104,7 +104,7 @@
     </div>
 
     <!-- LOGIN LAYER -->
-    <div v-if="!isLoggedIn" class="absolute inset-0 z-50 flex flex-col justify-center items-center px-8">
+    <div v-if="!isLoggedIn" class="absolute inset-0 z-50 flex flex-col justify-center items-center px-8" style="padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom);">
       <div class="w-full max-w-sm">
         <div class="text-center mb-10">
           <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl glass-panel mb-4 p-2 shadow-2xl">
@@ -142,7 +142,7 @@
     </div>
 
     <!-- MAIN APP LAYOUT -->
-    <main ref="mainContainer" v-if="isLoggedIn" @scroll.passive="handleScroll" class="relative z-10 max-w-md mx-auto h-[100dvh] overflow-y-auto pb-28 px-5 pt-12" style="-webkit-overflow-scrolling: touch; overscroll-behavior: contain;">
+    <main ref="mainContainer" v-if="isLoggedIn" @scroll.passive="handleScroll" class="relative z-10 max-w-md mx-auto h-[100dvh] overflow-y-auto px-5" style="-webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding-top: calc(env(safe-area-inset-top) + 2rem); padding-bottom: calc(env(safe-area-inset-bottom) + 7rem);">
       <header class="mb-6 shrink-0">
         <div class="flex items-center justify-between mb-5">
           <div class="flex items-center gap-3">
@@ -363,7 +363,7 @@
     </main>
 
     <!-- Bottom Navigation -->
-    <nav v-if="isLoggedIn" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 px-4 pb-4 pt-2 pointer-events-none">
+    <nav v-if="isLoggedIn" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 px-4 pt-2 pointer-events-none" style="padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);">
       <div class="glass-nav rounded-3xl flex justify-around items-center h-16 px-2 pointer-events-auto">
         <button v-for="tab in accessibleTabs" :key="tab.id" @click="changeTab(tab.id)" :style="activeTab === tab.id ? { backgroundColor: `${tab.color}30`, borderColor: `${tab.color}80`, boxShadow: `0 0 20px ${tab.glow}, inset 0 2px 2px 0 ${tab.color}66` } : {}" class="flex-1 flex flex-col items-center justify-center h-12 rounded-2xl active:scale-90 transition-all duration-300 border border-transparent">
           <iconify-icon :icon="tab.icon" width="24" :style="{ color: activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.5)' }"></iconify-icon>
