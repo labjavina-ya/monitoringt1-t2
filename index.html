@@ -36,7 +36,15 @@
 
   <style>
     html, body { width: 100%; height: 100%; margin: 0; padding: 0; overscroll-behavior: none; }
-    body { background-color: #020202; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; overflow: hidden; }
+    body { 
+      background-color: #020202; 
+      font-family: 'Inter', sans-serif; 
+      -webkit-tap-highlight-color: transparent; 
+      overflow: hidden; 
+      /* FIX 1: Menambahkan padding-bottom safe area agar background full ke bawah */
+      padding-bottom: env(safe-area-inset-bottom);
+      height: -webkit-fill-available;
+    }
     ::-webkit-scrollbar { width: 0; height: 0; display: none; }
     * { scrollbar-width: none; -ms-overflow-style: none; }
     input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
@@ -53,7 +61,7 @@
     .glass-panel { background: rgba(20, 20, 25, 0.55); backdrop-filter: blur(40px) saturate(200%); -webkit-backdrop-filter: blur(40px) saturate(200%); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 2px 2px 0 rgba(255, 255, 255, 0.25), inset 0 -2px 2px 0 rgba(0, 0, 0, 0.2); }
     .glass-card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.2); transition: all 0.2s ease; }
     .glass-card:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.2); }
-    .glass-nav { background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(50px) saturate(200%); -webkit-backdrop-filter: blur(50px) saturate(200%); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8), inset 0 2px 2px 0 rgba(255, 255, 255, 0.2); }
+    .glass-nav { background: rgba(10, 10, 12, 0.75); backdrop-filter: blur(50px) saturate(200%); -webkit-backdrop-filter: blur(50px) saturate(200%); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8), inset 0 2px 2px 0 rgba(255, 255, 255, 0.2); }
     .glass-dropdown { background: rgba(15, 15, 20, 0.92); backdrop-filter: blur(50px) saturate(200%); -webkit-backdrop-filter: blur(50px) saturate(200%); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), inset 0 1px 0 0 rgba(255, 255, 255, 0.2); }
 
     .modal-overlay { transition: opacity 0.3s ease; }
@@ -142,7 +150,7 @@
     </div>
 
     <!-- MAIN APP LAYOUT -->
-    <main ref="mainContainer" v-if="isLoggedIn" @scroll.passive="handleScroll" class="relative z-10 max-w-md mx-auto h-[100dvh] overflow-y-auto px-5" style="-webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding-top: calc(env(safe-area-inset-top) + 2rem); padding-bottom: calc(env(safe-area-inset-bottom) + 7rem);">
+    <main ref="mainContainer" v-if="isLoggedIn" @scroll.passive="handleScroll" class="relative z-10 max-w-md mx-auto h-[100dvh] overflow-y-auto px-5" style="-webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding-top: calc(env(safe-area-inset-top) + 2rem); padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);">
       <header class="mb-6 shrink-0">
         <div class="flex items-center justify-between mb-5">
           <div class="flex items-center gap-3">
@@ -362,11 +370,11 @@
       </transition>
     </main>
 
-    <!-- Bottom Navigation (Diperbaiki agar mentok ke bawah) -->
-    <nav v-if="isLoggedIn" class="fixed bottom-0 left-0 w-full z-50 pointer-events-none">
-      <div class="max-w-md mx-auto pointer-events-auto">
-        <div class="glass-nav rounded-t-3xl flex justify-around items-center px-2 pt-2" style="padding-bottom: env(safe-area-inset-bottom); border-bottom: none;">
-          <button v-for="tab in accessibleTabs" :key="tab.id" @click="changeTab(tab.id)" :style="activeTab === tab.id ? { backgroundColor: `${tab.color}30`, borderColor: `${tab.color}80`, boxShadow: `0 0 20px ${tab.glow}, inset 0 2px 2px 0 ${tab.color}66` } : {}" class="flex-1 flex flex-col items-center justify-center h-12 rounded-2xl active:scale-90 transition-all duration-300 border border-transparent mb-2">
+    <!-- FIX 3: Bottom Navigation - Menggunakan inset-x-0 mx-auto sebagai ganti left-1/2 -translate-x-1/2 untuk menghindari bug iOS Safari -->
+    <nav v-if="isLoggedIn" class="fixed bottom-0 inset-x-0 mx-auto w-full max-w-md z-50 pointer-events-none">
+      <div class="glass-nav rounded-t-3xl pointer-events-auto" style="padding-bottom: env(safe-area-inset-bottom);">
+        <div class="flex justify-around items-center h-16 px-2 pt-2">
+          <button v-for="tab in accessibleTabs" :key="tab.id" @click="changeTab(tab.id)" :style="activeTab === tab.id ? { backgroundColor: `${tab.color}30`, borderColor: `${tab.color}80`, boxShadow: `0 0 20px ${tab.glow}, inset 0 2px 2px 0 ${tab.color}66` } : {}" class="flex-1 flex flex-col items-center justify-center h-12 rounded-2xl active:scale-90 transition-all duration-300 border border-transparent">
             <iconify-icon :icon="tab.icon" width="24" :style="{ color: activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.5)' }"></iconify-icon>
             <span :style="{ color: activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.5)' }" class="text-[9px] tracking-wide mt-1 font-bold">{{ tab.label }}</span>
           </button>
@@ -374,10 +382,10 @@
       </div>
     </nav>
 
-    <!-- MODAL FORM -->
+    <!-- MODAL FORM - FIX 4: Menambahkan pb-[env(safe-area-inset-bottom)] agar tombol tidak tertutup home indicator -->
     <transition name="modal">
       <div v-if="isAppReady && isModalOpen" class="modal-overlay fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="formBackdrop" @click.self="closeModal">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="formSheet" style="padding-bottom: calc(env(safe-area-inset-bottom) + 1.5rem);">
+        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 pb-[env(safe-area-inset-bottom)] relative" ref="formSheet">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           
           <div class="modal-header flex items-center justify-between mb-6 mt-3 pb-4 border-b border-white/10 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
@@ -528,10 +536,10 @@
       </div>
     </transition>
 
-    <!-- MODAL RIWAYAT SYNC -->
+    <!-- MODAL RIWAYAT SYNC - FIX 4: Menambahkan pb-[env(safe-area-inset-bottom)] -->
     <transition name="modal">
       <div v-if="isAppReady && isSyncModalOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="syncBackdrop" @click.self="isSyncModalOpen = false">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="syncSheet" style="padding-bottom: calc(env(safe-area-inset-bottom) + 1.5rem);">
+        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 pb-[env(safe-area-inset-bottom)] relative" ref="syncSheet">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           <div class="modal-header flex items-center justify-between mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div><p class="text-xs text-frost/70 tracking-widest font-medium">RIWAYAT SERVER</p><h3 class="font-display text-xl font-bold text-white">Data Sync</h3></div>
@@ -551,10 +559,10 @@
       </div>
     </transition>
 
-    <!-- MODAL NOTIFIKASI -->
+    <!-- MODAL NOTIFIKASI - FIX 4: Menambahkan pb-[env(safe-area-inset-bottom)] -->
     <transition name="modal">
       <div v-if="isAppReady && isNotifOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="notifBackdrop" @click.self="isNotifOpen = false">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="notifSheet" style="padding-bottom: calc(env(safe-area-inset-bottom) + 1.5rem);">
+        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 pb-[env(safe-area-inset-bottom)] relative" ref="notifSheet">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           <div class="modal-header flex items-center justify-between mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div><p class="text-xs text-frost/70 tracking-widest font-medium">AKTIVITAS</p><h3 class="font-display text-xl font-bold text-white">Notifikasi Terbaru</h3></div>
@@ -574,10 +582,10 @@
       </div>
     </transition>
 
-    <!-- MODAL LOGOUT -->
+    <!-- MODAL LOGOUT - FIX 4: Menambahkan pb-[env(safe-area-inset-bottom)] -->
     <transition name="modal">
       <div v-if="isAppReady && isLogoutModalOpen" class="modal-overlay fixed inset-0 z-[70] flex items-center justify-center bg-night/80 backdrop-blur-md px-8" ref="logoutBackdrop" @click.self="isLogoutModalOpen = false">
-        <div class="glass-modal-inner glass-panel w-full max-w-sm rounded-3xl p-6 relative" ref="logoutSheet" style="padding-bottom: calc(env(safe-area-inset-bottom) + 1.5rem);">
+        <div class="glass-modal-inner glass-panel w-full max-w-sm rounded-3xl p-6 pb-[env(safe-area-inset-bottom)] relative" ref="logoutSheet">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           <div class="modal-header text-center mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
             <div class="w-14 h-14 mx-auto rounded-2xl bg-red-500/15 flex items-center justify-center border border-red-500/30 mb-4 shadow-[0_0_20px_rgba(239,68,68,0.2)]"><iconify-icon icon="ph:warning-circle-bold" width="32" class="text-red-400"></iconify-icon></div>
@@ -645,7 +653,7 @@
 
         onMounted(() => { nextTick(() => { isAppReady.value = true; }); });
         
-        // === SWIPE DOWN HANDLERS ===
+        // === SWIPE DOWN HANDLERS (Adopted from Reference) ===
         const onTouchStart = (e) => {
           touchStartY.value = e.touches[0].clientY;
           
