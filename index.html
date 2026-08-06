@@ -71,7 +71,6 @@
 
     .modal-overlay { transition: opacity 0.3s ease; }
     .glass-modal-inner { transition: transform 0.3s ease, opacity 0.3s ease; overscroll-behavior-y: contain; touch-action: pan-y; }
-    main { touch-action: pan-y !important; }
     
     .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
     .fade-enter-from { opacity: 0; transform: translateY(10px); }
@@ -95,6 +94,24 @@
     @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
     .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; }
     iconify-icon { display: inline-flex; vertical-align: middle; color: inherit; }
+    /* Mendorong konten utama ke bawah agar header tidak tertutup poni kamera */
+    main {
+      touch-action: pan-y !important;
+      padding-top: calc(3rem + env(safe-area-inset-top)) !important;
+      /* Sesuaikan padding bawah agar tidak bentrok dengan home indicator */
+      padding-bottom: calc(7rem + env(safe-area-inset-bottom)) !important; 
+    }
+    
+    /* Memastikan navigasi bawah tidak tertimpa garis home indicator (khususnya iPhone) */
+    nav {
+      padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
+    }
+    
+    /* Memastikan halaman login tidak tertutup notch */
+    .absolute.inset-0.z-50 {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
   </style>
 </head>
 
