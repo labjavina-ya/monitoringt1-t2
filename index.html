@@ -203,10 +203,10 @@
           </div>
           <div class="glass-panel rounded-3xl p-4 relative">
             <div class="grid grid-cols-12 gap-2 text-[10px] uppercase tracking-wider text-frost/70 font-bold pb-3 border-b border-white/10 mb-3">
-              <div class="col-span-4">Tgl Monitor</div>
-              <div class="col-span-4">Kode Project</div>
-              <div class="col-span-2">Periode</div>
-              <div class="col-span-2 text-right">Rak</div>
+              <div class="col-span-4 cursor-pointer hover:text-frost transition flex items-center gap-1" @click="setSort('tgl')">Tgl Monitor <iconify-icon v-if="sortKey==='tgl'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
+              <div class="col-span-4 cursor-pointer hover:text-frost transition flex items-center gap-1" @click="setSort('kode')">Kode Project <iconify-icon v-if="sortKey==='kode'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
+              <div class="col-span-2 cursor-pointer hover:text-frost transition flex items-center gap-1" @click="setSort('periode')">Periode <iconify-icon v-if="sortKey==='periode'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
+              <div class="col-span-2 text-right cursor-pointer hover:text-frost transition flex items-center justify-end gap-1" @click="setSort('rak')">Rak <iconify-icon v-if="sortKey==='rak'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
             </div>
             <div v-if="isFetching" class="space-y-2">
               <div v-for="n in 4" :key="n" class="glass-card grid grid-cols-12 gap-2 items-center p-3 rounded-xl">
@@ -249,7 +249,10 @@
           </div>
           <div class="glass-panel rounded-3xl p-4 relative">
             <div class="grid grid-cols-12 gap-2 text-[10px] uppercase tracking-wider text-frost/70 font-bold pb-3 border-b border-white/10 mb-3">
-              <div class="col-span-4">Tgl Monitor</div><div class="col-span-3">Kode</div><div class="col-span-2 text-center">Jml Botol</div><div class="col-span-3 text-right">Rak Botol</div>
+              <div class="col-span-4 cursor-pointer hover:text-frost transition flex items-center gap-1" @click="setSort('tgl')">Tgl Monitor <iconify-icon v-if="sortKey==='tgl'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
+              <div class="col-span-3 cursor-pointer hover:text-frost transition flex items-center gap-1" @click="setSort('kode')">Kode <iconify-icon v-if="sortKey==='kode'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
+              <div class="col-span-2 text-center cursor-pointer hover:text-frost transition flex items-center justify-center gap-1" @click="setSort('jumlahBotol')">Jml Botol <iconify-icon v-if="sortKey==='jumlahBotol'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
+              <div class="col-span-3 text-right cursor-pointer hover:text-frost transition flex items-center justify-end gap-1" @click="setSort('rak')">Rak Botol <iconify-icon v-if="sortKey==='rak'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
             </div>
             <div v-if="isFetching" class="space-y-2">
               <div v-for="n in 4" :key="n" class="glass-card grid grid-cols-12 gap-2 items-center p-3 rounded-xl">
@@ -292,7 +295,10 @@
           </div>
           <div class="glass-panel rounded-3xl p-4 relative">
             <div class="grid grid-cols-12 gap-2 text-[10px] uppercase tracking-wider text-frost/70 font-bold pb-3 border-b border-white/10 mb-3">
-              <div class="col-span-4">Kode</div><div class="col-span-2">Periode</div><div class="col-span-2">Rak</div><div class="col-span-4 text-right">Hasil Monitor</div>
+              <div class="col-span-4 cursor-pointer hover:text-frost transition flex items-center gap-1" @click="setSort('kode')">Kode <iconify-icon v-if="sortKey==='kode'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
+              <div class="col-span-2 cursor-pointer hover:text-frost transition flex items-center gap-1" @click="setSort('periode')">Periode <iconify-icon v-if="sortKey==='periode'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
+              <div class="col-span-2 cursor-pointer hover:text-frost transition flex items-center gap-1" @click="setSort('rak')">Rak <iconify-icon v-if="sortKey==='rak'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
+              <div class="col-span-4 text-right cursor-pointer hover:text-frost transition flex items-center justify-end gap-1" @click="setSort('status')">Hasil Monitor <iconify-icon v-if="sortKey==='status'" :icon="sortOrder===1 ? 'ph:caret-up-bold' : 'ph:caret-down-bold'" width="12" class="text-frost"></iconify-icon></div>
             </div>
             <div v-if="isFetching" class="space-y-2">
               <div v-for="n in 4" :key="n" class="glass-card grid grid-cols-12 gap-2 items-center p-3 rounded-xl">
@@ -518,7 +524,7 @@
           <div v-else-if="modalContext === 'result'" class="space-y-4">
             <div class="w-full h-48 rounded-2xl overflow-hidden glass-card">
               <img v-if="formData.foto" :src="formData.foto" class="w-full h-full object-cover" alt="Foto Monitoring">
-              <div v-else class="w-full h-full flex items-center justify-center text-white/30 text-sm">Tidak Ada Foto</div>
+              <div v-else class="w-full h-48 flex items-center justify-center text-white/30 text-sm">Tidak Ada Foto</div>
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div class="glass-card p-3 rounded-xl"><p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Kode</p><p class="text-sm text-white font-display font-bold">{{ formData.kode }}</p></div>
@@ -619,6 +625,10 @@
         const searchQuery = ref('');
         const displayLimit = ref(15); 
         const mainContainer = ref(null); 
+
+        // SORTING STATE
+        const sortKey = ref('rak');
+        const sortOrder = ref(1); // 1 for Asc (A-Z), -1 for Desc (Z-A)
 
         const trans1Data = ref([]);
         const trans2Data = ref([]);
@@ -915,20 +925,63 @@
           if (activeTab.value === 't3') return trans3Data.value; if (activeTab.value === 'result') return resultData.value; return [];
         });
 
+        // SORT FUNCTION
+        const setSort = (key) => {
+          if (sortKey.value === key) {
+            sortOrder.value = sortOrder.value * -1; // Toggle sort order
+          } else {
+            sortKey.value = key;
+            sortOrder.value = 1; // Default to Ascending (A-Z)
+          }
+        };
+
+        // MODIFIED filteredData WITH SORTING LOGIC
         const filteredData = computed(() => {
-          if (!searchQuery.value || activeTab.value === 'profile') return currentListData.value;
-          let q = searchQuery.value.toLowerCase();
-          return currentListData.value.filter(item => {
-            if (activeTab.value === 't3') return item.kode.toLowerCase().includes(q) || item.rak.toLowerCase().includes(q) || item.jumlahBotol.toString().includes(q);
-            if (activeTab.value === 'result') return item.kode.toLowerCase().includes(q) || item.rak.toLowerCase().includes(q) || item.status.toLowerCase().includes(q);
-            return item.kode.toLowerCase().includes(q) || item.rak.toLowerCase().includes(q) || item.periode.toLowerCase().includes(q);
+          let baseData = currentListData.value;
+          
+          // Filter
+          if (searchQuery.value && activeTab.value !== 'profile') {
+            let q = searchQuery.value.toLowerCase();
+            baseData = baseData.filter(item => {
+              if (activeTab.value === 't3') return item.kode.toLowerCase().includes(q) || item.rak.toLowerCase().includes(q) || item.jumlahBotol.toString().includes(q);
+              if (activeTab.value === 'result') return item.kode.toLowerCase().includes(q) || item.rak.toLowerCase().includes(q) || item.status.toLowerCase().includes(q);
+              return item.kode.toLowerCase().includes(q) || item.rak.toLowerCase().includes(q) || item.periode.toLowerCase().includes(q);
+            });
+          }
+
+          // Sort
+          const key = sortKey.value;
+          const order = sortOrder.value;
+          
+          return [...baseData].sort((a, b) => {
+            let valA = a[key] ? a[key].toString().toLowerCase() : "";
+            let valB = b[key] ? b[key].toString().toLowerCase() : "";
+
+            // Check if both values are numbers for numeric sorting
+            const numA = parseFloat(valA);
+            const numB = parseFloat(valB);
+            if (!isNaN(numA) && !isNaN(numB)) {
+              return (numA - numB) * order;
+            }
+
+            // String comparison
+            if (valA < valB) return -1 * order;
+            if (valA > valB) return 1 * order;
+            return 0;
           });
         });
 
         const visibleData = computed(() => filteredData.value.slice(0, displayLimit.value));
         const sliderStyle = computed(() => { const val = formData.persentase || 0; return { background: `linear-gradient(to right, #B2D5E5 ${val}%, rgba(255, 255, 255, 0.1) ${val}%)` }; });
 
-        watch([activeTab, searchQuery], () => { displayLimit.value = 15; nextTick(() => { if (mainContainer.value) mainContainer.value.scrollTop = 0; }); });
+        // Reset Sorting on Tab Change or Search
+        watch([activeTab, searchQuery], () => { 
+          displayLimit.value = 15; 
+          sortKey.value = 'rak'; // Reset sort to Rak
+          sortOrder.value = 1;   // Reset order to A-Z
+          nextTick(() => { if (mainContainer.value) mainContainer.value.scrollTop = 0; }); 
+        });
+        
         const changeTab = (tabId) => { activeTab.value = tabId; searchQuery.value = ''; };
         const handleScroll = (e) => { const { scrollTop, scrollHeight, clientHeight } = e.target; if (scrollHeight - (scrollTop + clientHeight) < 50) { if (displayLimit.value < filteredData.value.length) displayLimit.value += 5; } };
 
@@ -953,6 +1006,8 @@
           modalContext, modalTitle, formError, formData, sliderStyle, increment, decrement,
           openFormModal, closeModal, handleFileUpload, submitMonitoringForm, submitTrans3Form,
           syncedData, getTabColor,
+          // Sort Handlers
+          sortKey, sortOrder, setSort,
           // Swipe Handlers & Refs
           formSheet, formBackdrop, syncSheet, syncBackdrop, notifSheet, notifBackdrop, logoutSheet, logoutBackdrop,
           onTouchStart, onTouchMove, onTouchEnd
