@@ -7,23 +7,19 @@
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <!-- Vue 3 CDN -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  
   <!-- Iconify CDN -->
   <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Inter & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="Monitoring Lab" />
-  <link rel="manifest" href="/site.webmanifest" />
-
+  <!-- Tailwind Config & Custom Styles -->
   <script>
     tailwind.config = {
       theme: {
@@ -42,31 +38,110 @@
   </script>
 
   <style>
-    html, body { width: 100%; height: 100%; margin: 0; padding: 0; overscroll-behavior: none; }
-    body { background-color: #020202; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; overflow: hidden; }
+    /* FIX BUG FREEZE: Jangan kunci position html/body */
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overscroll-behavior: none;
+    }
+    
+    body {
+      background-color: #020202;
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      overflow: hidden; 
+    }
+
+    /* Sembunyikan scrollbar */
     ::-webkit-scrollbar { width: 0; height: 0; display: none; }
     * { scrollbar-width: none; -ms-overflow-style: none; }
-    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+    /* Sembunyikan default arrow spinner pada input number */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
     input[type=number] { -moz-appearance: textfield; }
 
-    @keyframes float-orb-1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(40px, -50px); } }
-    @keyframes float-orb-2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-50px, 40px); } }
+    /* Animasi Orb Melayang */
+    @keyframes float-orb-1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(40px, -50px); }
+    }
+    @keyframes float-orb-2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-50px, 40px); }
+    }
     .orb-1 { animation: float-orb-1 12s ease-in-out infinite; }
     .orb-2 { animation: float-orb-2 15s ease-in-out infinite; }
 
-    @keyframes float-particle { 0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; } 50% { transform: translateY(-30px) translateX(15px); opacity: 0.8; } }
-    .particle { position: absolute; border-radius: 50%; background: #B2D5E5; filter: blur(1px); animation: float-particle 8s ease-in-out infinite; }
+    /* Animasi Partikel Bokeh (City Lights) */
+    @keyframes float-particle {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+      50% { transform: translateY(-30px) translateX(15px); opacity: 0.8; }
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: #B2D5E5;
+      filter: blur(1px);
+      animation: float-particle 8s ease-in-out infinite;
+    }
 
-    .glass-panel { background: rgba(20, 20, 25, 0.55); backdrop-filter: blur(40px) saturate(200%); -webkit-backdrop-filter: blur(40px) saturate(200%); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 2px 2px 0 rgba(255, 255, 255, 0.25), inset 0 -2px 2px 0 rgba(0, 0, 0, 0.2); }
-    .glass-card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.2); transition: all 0.2s ease; }
-    .glass-card:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.2); }
-    .glass-nav { background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(50px) saturate(200%); -webkit-backdrop-filter: blur(50px) saturate(200%); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8), inset 0 2px 2px 0 rgba(255, 255, 255, 0.2); }
-    .glass-dropdown { background: rgba(15, 15, 20, 0.92); backdrop-filter: blur(50px) saturate(200%); -webkit-backdrop-filter: blur(50px) saturate(200%); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), inset 0 1px 0 0 rgba(255, 255, 255, 0.2); }
+    /* === GLASSMORPHISM TINGKAT MAKSIMAL === */
+    .glass-panel {
+      background: rgba(20, 20, 25, 0.55);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 2px 2px 0 rgba(255, 255, 255, 0.25), inset 0 -2px 2px 0 rgba(0, 0, 0, 0.2);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.2s ease;
+    }
+    .glass-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .glass-nav {
+      background: rgba(10, 10, 12, 0.7);
+      backdrop-filter: blur(50px) saturate(200%);
+      -webkit-backdrop-filter: blur(50px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8), inset 0 2px 2px 0 rgba(255, 255, 255, 0.2);
+    }
 
+    /* === GLASSMORPHISM DROPDOWN TEBAL === */
+    .glass-dropdown {
+      background: rgba(15, 15, 20, 0.92);
+      backdrop-filter: blur(50px) saturate(200%);
+      -webkit-backdrop-filter: blur(50px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+    }
+
+    /* Base Transition untuk Modal */
     .modal-overlay { transition: opacity 0.3s ease; }
-    .glass-modal-inner { transition: transform 0.3s ease, opacity 0.3s ease; overscroll-behavior-y: contain; touch-action: pan-y; }
-    main { touch-action: pan-y !important; }
+    .glass-modal-inner { 
+      transition: transform 0.3s ease, opacity 0.3s ease; 
+      overscroll-behavior-y: contain; 
+      touch-action: pan-y; 
+    }
     
+    /* FIX KRITIS: Paksa main container selalu mengizinkan scroll vertikal */
+    main {
+      touch-action: pan-y !important;
+    }
+    
+    /* Transisi Halaman Vue */
     .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
     .fade-enter-from { opacity: 0; transform: translateY(10px); }
     .fade-leave-to { opacity: 0; transform: translateY(-10px); }
@@ -77,24 +152,76 @@
     .modal-enter-from .glass-modal-inner { transform: translateY(100%); }
     .modal-leave-to .glass-modal-inner { transform: translateY(100%); }
 
-    .custom-range { -webkit-appearance: none; appearance: none; height: 8px; border-radius: 4px; outline: none; cursor: pointer; }
-    .custom-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; margin-top: -5px; background-color: #FFFFFF; height: 18px; width: 18px; border-radius: 50%; box-shadow: 0 0 10px rgba(178, 213, 229, 0.8), 0 2px 4px rgba(0,0,0,0.3); border: 2px solid #B2D5E5; }
-    .custom-range::-moz-range-thumb { background-color: #FFFFFF; height: 18px; width: 18px; border: 2px solid #B2D5E5; border-radius: 50%; box-shadow: 0 0 10px rgba(178, 213, 229, 0.8); }
+    /* Custom Range Slider dengan Fill Color */
+    .custom-range {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 8px;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+    }
+    .custom-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -5px;
+      background-color: #FFFFFF;
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(178, 213, 229, 0.8), 0 2px 4px rgba(0,0,0,0.3);
+      border: 2px solid #B2D5E5;
+    }
+    .custom-range::-moz-range-thumb {
+      background-color: #FFFFFF;
+      height: 18px;
+      width: 18px;
+      border: 2px solid #B2D5E5;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(178, 213, 229, 0.8);
+    }
 
-    .list-enter-active, .list-leave-active { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-    .list-enter-from, .list-leave-to { opacity: 0; transform: scale(0.95); }
-    .list-leave-active { position: absolute; width: calc(100% - 2rem); }
-    .list-move { transition: transform 0.4s ease; }
+    /* Animasi List (Smooth Fade & Scale saat Search/Hapus/Tambah) */
+    .list-enter-active, .list-leave-active {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .list-enter-from, .list-leave-to {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    .list-leave-active {
+      position: absolute;
+      width: calc(100% - 2rem);
+    }
+    .list-move {
+      transition: transform 0.4s ease;
+    }
 
-    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-    .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; }
-    iconify-icon { display: inline-flex; vertical-align: middle; color: inherit; }
+    /* Efek Skeleton Loading agar tidak terasa lemot */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    /* Styling untuk Iconify agar mewarisi warna (currentColor) */
+    iconify-icon {
+      display: inline-flex;
+      vertical-align: middle;
+      color: inherit;
+    }
   </style>
 </head>
 
 <body class="text-white antialiased">
-  <div id="app" class="relative h-[100%] w-screen overflow-hidden">
+  <div id="app" class="relative h-[100dvh] w-screen overflow-hidden">
     
+    <!-- Background Layer: Vignette, Grid, Orbs & City Lights -->
     <div class="fixed inset-0 z-0 bg-night overflow-hidden">
       <div class="absolute inset-0" style="background: radial-gradient(circle at 50% 30%, #0f1419 0%, #020202 70%);"></div>
       <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(178, 213, 229, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(178, 213, 229, 0.1) 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(circle at 50% 30%, black 10%, transparent 70%); -webkit-mask-image: radial-gradient(circle at 50% 30%, black 10%, transparent 70%);"></div>
@@ -110,16 +237,19 @@
       <div class="particle w-1.5 h-1.5 top-[10%] left-[60%] opacity-30" style="animation-delay: 0.5s;"></div>
     </div>
 
-    <!-- LOGIN LAYER -->
+    <!-- ========================================= -->
+    <!-- =========== LAYER LOGIN OAUTH =========== -->
+    <!-- ========================================= -->
     <div v-if="!isLoggedIn" class="absolute inset-0 z-50 flex flex-col justify-center items-center px-8">
       <div class="w-full max-w-sm">
         <div class="text-center mb-10">
           <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl glass-panel mb-4 p-2 shadow-2xl">
-            <img src="https://lh3.googleusercontent.com/d/18vxkXZsFq2fF3HACl-FEBpcSI9vE37d6=w1000" alt="Logo" class="w-full h-full object-contain rounded-2xl">
+            <img src="https://lh3.googleusercontent.com/d/18vxkXZsFq2fF3HACl-FEBpcSI9vE37d6=w1000" alt="Logo Perusahaan" class="w-full h-full object-contain rounded-2xl">
           </div>
           <h1 class="font-display text-3xl font-extrabold text-white drop-shadow-[0_4px_12px_rgba(178,213,229,0.4)]">MONITORING</h1>
           <p class="text-frost/70 tracking-[0.2em] font-sans text-xs mt-2">TRANS 1, 2 & 3 SYSTEM</p>
         </div>
+
         <div class="glass-panel rounded-3xl p-6 space-y-4">
           <div>
             <label class="text-xs text-white/60 font-medium mb-2 block">Username</label>
@@ -139,7 +269,11 @@
               <input v-model="loginForm.password" type="password" class="w-full pl-11 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-2xl text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-frost/50 transition-all" placeholder="Masukkan password" @keyup.enter="handleLogin">
             </div>
           </div>
-          <div v-if="loginError" class="text-red-400 text-xs text-center bg-red-500/10 py-2 rounded-xl border border-red-500/20">{{ loginError }}</div>
+
+          <div v-if="loginError" class="text-red-400 text-xs text-center bg-red-500/10 py-2 rounded-xl border border-red-500/20">
+            {{ loginError }}
+          </div>
+
           <button @click="handleLogin" :disabled="isLoggingIn" class="w-full py-3.5 rounded-2xl bg-frost text-night font-bold text-sm hover:bg-white/80 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(178,213,229,0.3)]">
             <iconify-icon v-if="isLoggingIn" icon="ph:circle-notch-bold" width="20" class="animate-spin"></iconify-icon>
             <span>{{ isLoggingIn ? 'Mohon Tunggu...' : 'Masuk Sistem' }}</span>
@@ -148,8 +282,11 @@
       </div>
     </div>
 
-    <!-- MAIN APP LAYOUT -->
+    <!-- ========================================= -->
+    <!-- =========== MAIN APP LAYOUT ============= -->
+    <!-- ========================================= -->
     <main ref="mainContainer" v-if="isLoggedIn" @scroll.passive="handleScroll" class="relative z-10 max-w-md mx-auto h-[100dvh] overflow-y-auto pb-28 px-5 pt-12" style="-webkit-overflow-scrolling: touch; overscroll-behavior: contain;">
+      
       <header class="mb-6 shrink-0">
         <div class="flex items-center justify-between mb-5">
           <div class="flex items-center gap-3">
@@ -164,6 +301,7 @@
               </h1>
             </div>
           </div>
+          
           <div class="flex items-center gap-2 sm:gap-3">
             <button @click="isSyncModalOpen = true" class="w-11 h-11 rounded-2xl glass-panel flex items-center justify-center hover:bg-white/10 active:scale-95 transition-all duration-300 text-frost">
               <iconify-icon icon="ph:cloud-arrow-up-bold" width="24"></iconify-icon>
@@ -177,6 +315,7 @@
             </button>
           </div>
         </div>
+        
         <div v-if="activeTab !== 'profile'" class="relative">
           <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
             <iconify-icon icon="ph:magnifying-glass-bold" width="20" class="text-white/40"></iconify-icon>
@@ -186,11 +325,13 @@
       </header>
 
       <transition name="fade" mode="out-in">
-        <!-- TAB: TRANS 1 & 2 -->
+        
+        <!-- TAB: TRANS 1 & TRANS 2 -->
         <div v-if="activeTab === 't1' || activeTab === 't2'" :key="activeTab" class="space-y-4 min-h-[600px]">
           <div class="glass-panel rounded-3xl p-5 flex items-center gap-4 relative overflow-hidden hover:border-frost/30 active:scale-[0.99] transition-all duration-300">
             <div class="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-frost/10 to-transparent pointer-events-none"></div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center border shadow-lg shrink-0" :style="{ backgroundColor: `${activeTabData.color}25`, color: activeTabData.color, borderColor: `${activeTabData.color}50`, boxShadow: `0 0 15px ${activeTabData.glow}` }">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center border shadow-lg shrink-0"
+                 :style="{ backgroundColor: `${activeTabData.color}25`, color: activeTabData.color, borderColor: `${activeTabData.color}50`, boxShadow: `0 0 15px ${activeTabData.glow}` }">
               <iconify-icon :icon="activeTabData.icon" width="24"></iconify-icon>
             </div>
             <div class="relative z-10">
@@ -201,18 +342,45 @@
               </div>
             </div>
           </div>
+
           <div class="glass-panel rounded-3xl p-4 relative">
+            <!-- HEADER TABEL BISA DI SORT -->
             <div class="grid grid-cols-12 gap-2 text-[10px] uppercase tracking-wider text-frost/70 font-bold pb-3 border-b border-white/10 mb-3">
-              <div class="col-span-4">Tgl Monitor</div>
-              <div class="col-span-4">Kode Project</div>
-              <div class="col-span-2">Periode</div>
-              <div class="col-span-2 text-right">Rak</div>
+              <button @click="changeSort('tgl')" class="col-span-4 flex items-center gap-1 text-left hover:text-frost transition">
+                Tgl Monitor
+                <iconify-icon v-if="sortKey === 'tgl' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'tgl' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
+              <button @click="changeSort('kode')" class="col-span-4 flex items-center gap-1 text-left hover:text-frost transition">
+                Kode Project
+                <iconify-icon v-if="sortKey === 'kode' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'kode' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
+              <button @click="changeSort('periode')" class="col-span-2 flex items-center gap-1 text-left hover:text-frost transition">
+                Periode
+                <iconify-icon v-if="sortKey === 'periode' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'periode' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
+              <button @click="changeSort('rak')" class="col-span-2 flex items-center gap-1 justify-end text-right hover:text-frost transition">
+                Rak
+                <iconify-icon v-if="sortKey === 'rak' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'rak' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
             </div>
+            
             <div v-if="isFetching" class="space-y-2">
               <div v-for="n in 4" :key="n" class="glass-card grid grid-cols-12 gap-2 items-center p-3 rounded-xl">
-                <div class="col-span-4 h-3 skeleton"></div><div class="col-span-4 h-3 skeleton"></div><div class="col-span-2 h-3 skeleton"></div><div class="col-span-2 h-3 skeleton"></div>
+                <div class="col-span-4 h-3 skeleton"></div>
+                <div class="col-span-4 h-3 skeleton"></div>
+                <div class="col-span-2 h-3 skeleton"></div>
+                <div class="col-span-2 h-3 skeleton"></div>
               </div>
             </div>
+            
             <transition-group v-else name="list" tag="div" class="space-y-2 relative">
               <div v-for="item in visibleData" :key="item.kode" @click="openFormModal(item, activeTab)" class="glass-card grid grid-cols-12 gap-2 items-center p-3 rounded-xl active:scale-[0.98] cursor-pointer">
                 <div class="col-span-4 text-xs text-white/70 font-medium whitespace-nowrap overflow-hidden text-ellipsis">{{ item.tgl }}</div>
@@ -221,11 +389,12 @@
                 <div class="col-span-2 text-xs font-bold text-right whitespace-nowrap" :style="{ color: activeTabData.color }">{{ item.rak }}</div>
               </div>
             </transition-group>
-            <div v-if="!isFetching && visibleData.length < filteredData.length" class="flex justify-center py-6">
+            
+            <div v-if="!isFetching && visibleData.length < sortedData.length" class="flex justify-center py-6">
               <iconify-icon icon="ph:circle-notch-bold" width="24" class="animate-spin" :style="{ color: activeTabData.color }"></iconify-icon>
             </div>
-            <div v-else-if="!isFetching && filteredData.length > 0" class="text-center py-4 text-white/30 text-[10px] tracking-widest">SEMUA DATA DITAMPILKAN</div>
-            <div v-if="!isFetching && filteredData.length === 0" class="text-center py-20 text-white/30 text-sm">
+            <div v-else-if="!isFetching && sortedData.length > 0" class="text-center py-4 text-white/30 text-[10px] tracking-widest">SEMUA DATA DITAMPILKAN</div>
+            <div v-if="!isFetching && sortedData.length === 0" class="text-center py-20 text-white/30 text-sm">
               <iconify-icon icon="ph:inbox-bold" width="48" class="mx-auto mb-3 opacity-30"></iconify-icon>
               <p>Tidak ada data ditemukan.</p>
             </div>
@@ -236,7 +405,8 @@
         <div v-else-if="activeTab === 't3'" key="t3" class="space-y-4 min-h-[600px]">
           <div class="glass-panel rounded-3xl p-5 flex items-center gap-4 relative overflow-hidden hover:border-frost/30 active:scale-[0.99] transition-all duration-300">
             <div class="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-frost/10 to-transparent pointer-events-none"></div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center border shadow-lg shrink-0" :style="{ backgroundColor: `${activeTabData.color}25`, color: activeTabData.color, borderColor: `${activeTabData.color}50`, boxShadow: `0 0 15px ${activeTabData.glow}` }">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center border shadow-lg shrink-0"
+                 :style="{ backgroundColor: `${activeTabData.color}25`, color: activeTabData.color, borderColor: `${activeTabData.color}50`, boxShadow: `0 0 15px ${activeTabData.glow}` }">
               <iconify-icon :icon="activeTabData.icon" width="24"></iconify-icon>
             </div>
             <div class="relative z-10">
@@ -248,14 +418,43 @@
             </div>
           </div>
           <div class="glass-panel rounded-3xl p-4 relative">
+            <!-- HEADER TABEL BISA DI SORT -->
             <div class="grid grid-cols-12 gap-2 text-[10px] uppercase tracking-wider text-frost/70 font-bold pb-3 border-b border-white/10 mb-3">
-              <div class="col-span-4">Tgl Monitor</div><div class="col-span-3">Kode</div><div class="col-span-2 text-center">Jml Botol</div><div class="col-span-3 text-right">Rak Botol</div>
+              <button @click="changeSort('tgl')" class="col-span-4 flex items-center gap-1 text-left hover:text-frost transition">
+                Tgl Monitor
+                <iconify-icon v-if="sortKey === 'tgl' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'tgl' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
+              <button @click="changeSort('kode')" class="col-span-3 flex items-center gap-1 text-left hover:text-frost transition">
+                Kode
+                <iconify-icon v-if="sortKey === 'kode' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'kode' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
+              <button @click="changeSort('jumlahBotol')" class="col-span-2 flex items-center gap-1 justify-center text-center hover:text-frost transition">
+                Jml Botol
+                <iconify-icon v-if="sortKey === 'jumlahBotol' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'jumlahBotol' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
+              <button @click="changeSort('rak')" class="col-span-3 flex items-center gap-1 justify-end text-right hover:text-frost transition">
+                Rak Botol
+                <iconify-icon v-if="sortKey === 'rak' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'rak' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
             </div>
+            
             <div v-if="isFetching" class="space-y-2">
               <div v-for="n in 4" :key="n" class="glass-card grid grid-cols-12 gap-2 items-center p-3 rounded-xl">
-                <div class="col-span-4 h-3 skeleton"></div><div class="col-span-3 h-3 skeleton"></div><div class="col-span-2 h-3 skeleton"></div><div class="col-span-3 h-3 skeleton"></div>
+                <div class="col-span-4 h-3 skeleton"></div>
+                <div class="col-span-3 h-3 skeleton"></div>
+                <div class="col-span-2 h-3 skeleton"></div>
+                <div class="col-span-3 h-3 skeleton"></div>
               </div>
             </div>
+
             <transition-group v-else name="list" tag="div" class="space-y-2 relative">
               <div v-for="item in visibleData" :key="item.kode" @click="openFormModal(item, 't3')" class="glass-card grid grid-cols-12 gap-2 items-center p-3 rounded-xl active:scale-[0.98] cursor-pointer">
                 <div class="col-span-4 text-xs text-white/70 font-medium whitespace-nowrap overflow-hidden text-ellipsis">{{ item.tgl }}</div>
@@ -264,11 +463,12 @@
                 <div class="col-span-3 text-xs font-bold text-right whitespace-nowrap" :style="{ color: activeTabData.color }">{{ item.rak }}</div>
               </div>
             </transition-group>
-            <div v-if="!isFetching && visibleData.length < filteredData.length" class="flex justify-center py-6">
+            
+            <div v-if="!isFetching && visibleData.length < sortedData.length" class="flex justify-center py-6">
               <iconify-icon icon="ph:circle-notch-bold" width="24" class="animate-spin" :style="{ color: activeTabData.color }"></iconify-icon>
             </div>
-            <div v-else-if="!isFetching && filteredData.length > 0" class="text-center py-4 text-white/30 text-[10px] tracking-widest">SEMUA DATA DITAMPILKAN</div>
-            <div v-if="!isFetching && filteredData.length === 0" class="text-center py-20 text-white/30 text-sm">
+            <div v-else-if="!isFetching && sortedData.length > 0" class="text-center py-4 text-white/30 text-[10px] tracking-widest">SEMUA DATA DITAMPILKAN</div>
+            <div v-if="!isFetching && sortedData.length === 0" class="text-center py-20 text-white/30 text-sm">
               <iconify-icon icon="ph:inbox-bold" width="48" class="mx-auto mb-3 opacity-30"></iconify-icon>
               <p>Tidak ada data ditemukan.</p>
             </div>
@@ -279,7 +479,8 @@
         <div v-else-if="activeTab === 'result'" key="result" class="space-y-4 min-h-[600px]">
           <div class="glass-panel rounded-3xl p-5 flex items-center gap-4 relative overflow-hidden hover:border-frost/30 active:scale-[0.99] transition-all duration-300">
             <div class="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-frost/10 to-transparent pointer-events-none"></div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center border shadow-lg shrink-0" :style="{ backgroundColor: `${activeTabData.color}25`, color: activeTabData.color, borderColor: `${activeTabData.color}50`, boxShadow: `0 0 15px ${activeTabData.glow}` }">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center border shadow-lg shrink-0"
+                 :style="{ backgroundColor: `${activeTabData.color}25`, color: activeTabData.color, borderColor: `${activeTabData.color}50`, boxShadow: `0 0 15px ${activeTabData.glow}` }">
               <iconify-icon :icon="activeTabData.icon" width="24"></iconify-icon>
             </div>
             <div class="relative z-10">
@@ -291,14 +492,43 @@
             </div>
           </div>
           <div class="glass-panel rounded-3xl p-4 relative">
+            <!-- HEADER TABEL BISA DI SORT -->
             <div class="grid grid-cols-12 gap-2 text-[10px] uppercase tracking-wider text-frost/70 font-bold pb-3 border-b border-white/10 mb-3">
-              <div class="col-span-4">Kode</div><div class="col-span-2">Periode</div><div class="col-span-2">Rak</div><div class="col-span-4 text-right">Hasil Monitor</div>
+              <button @click="changeSort('kode')" class="col-span-4 flex items-center gap-1 text-left hover:text-frost transition">
+                Kode
+                <iconify-icon v-if="sortKey === 'kode' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'kode' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
+              <button @click="changeSort('periode')" class="col-span-2 flex items-center gap-1 text-left hover:text-frost transition">
+                Periode
+                <iconify-icon v-if="sortKey === 'periode' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'periode' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
+              <button @click="changeSort('rak')" class="col-span-2 flex items-center gap-1 text-left hover:text-frost transition">
+                Rak
+                <iconify-icon v-if="sortKey === 'rak' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'rak' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
+              <button @click="changeSort('status')" class="col-span-4 flex items-center gap-1 justify-end text-right hover:text-frost transition">
+                Hasil Monitor
+                <iconify-icon v-if="sortKey === 'status' && sortOrder === 'asc'" icon="ph:caret-up-bold" width="12"></iconify-icon>
+                <iconify-icon v-else-if="sortKey === 'status' && sortOrder === 'desc'" icon="ph:caret-down-bold" width="12"></iconify-icon>
+                <iconify-icon v-else icon="ph:caret-up-down-bold" width="12" class="opacity-30"></iconify-icon>
+              </button>
             </div>
+            
             <div v-if="isFetching" class="space-y-2">
               <div v-for="n in 4" :key="n" class="glass-card grid grid-cols-12 gap-2 items-center p-3 rounded-xl">
-                <div class="col-span-4 h-3 skeleton"></div><div class="col-span-2 h-3 skeleton"></div><div class="col-span-2 h-3 skeleton"></div><div class="col-span-4 h-3 skeleton"></div>
+                <div class="col-span-4 h-3 skeleton"></div>
+                <div class="col-span-2 h-3 skeleton"></div>
+                <div class="col-span-2 h-3 skeleton"></div>
+                <div class="col-span-4 h-3 skeleton"></div>
               </div>
             </div>
+
             <transition-group v-else name="list" tag="div" class="space-y-2 relative">
               <div v-for="item in visibleData" :key="item.kode" @click="openFormModal(item, 'result')" class="glass-card grid grid-cols-12 gap-2 items-center p-3 rounded-xl active:scale-[0.98] cursor-pointer">
                 <div class="col-span-4 text-xs text-white font-display font-bold tracking-wide truncate">{{ item.kode }}</div>
@@ -309,11 +539,12 @@
                 </div>
               </div>
             </transition-group>
-            <div v-if="!isFetching && visibleData.length < filteredData.length" class="flex justify-center py-6">
+            
+            <div v-if="!isFetching && visibleData.length < sortedData.length" class="flex justify-center py-6">
               <iconify-icon icon="ph:circle-notch-bold" width="24" class="animate-spin" :style="{ color: activeTabData.color }"></iconify-icon>
             </div>
-            <div v-else-if="!isFetching && filteredData.length > 0" class="text-center py-4 text-white/30 text-[10px] tracking-widest">SEMUA DATA DITAMPILKAN</div>
-            <div v-if="!isFetching && filteredData.length === 0" class="text-center py-20 text-white/30 text-sm">
+            <div v-else-if="!isFetching && sortedData.length > 0" class="text-center py-4 text-white/30 text-[10px] tracking-widest">SEMUA DATA DITAMPILKAN</div>
+            <div v-if="!isFetching && sortedData.length === 0" class="text-center py-20 text-white/30 text-sm">
               <iconify-icon icon="ph:inbox-bold" width="48" class="mx-auto mb-3 opacity-30"></iconify-icon>
               <p>Tidak ada data ditemukan.</p>
             </div>
@@ -333,6 +564,7 @@
               <span class="inline-block px-3 py-1 text-[10px] font-bold rounded-full bg-green-500/20 text-green-400 border border-green-500/30 shadow-sm">STATUS: AKTIF</span>
             </div>
           </div>
+
           <div class="glass-panel rounded-3xl p-2 divide-y divide-white/5">
             <div class="flex items-center gap-4 p-4 hover:bg-white/5 active:scale-[0.98] transition-all duration-300 rounded-2xl">
               <div class="w-10 h-10 rounded-xl bg-frost/10 flex items-center justify-center text-frost border border-white/5 shrink-0">
@@ -354,38 +586,51 @@
                 </div>
               </div>
               <div class="flex flex-wrap gap-2 pl-14">
-                <span v-for="tab in currentUser.tab_access.split(',')" :key="tab" class="px-3 py-1.5 text-[10px] font-bold rounded-xl border shadow-sm" :style="{ backgroundColor: getTabColor(tab.trim()) + '20', color: getTabColor(tab.trim()), borderColor: getTabColor(tab.trim()) + '50' }">{{ tab.trim() }}</span>
+                <span v-for="tab in currentUser.tab_access.split(',')" :key="tab" 
+                      class="px-3 py-1.5 text-[10px] font-bold rounded-xl border shadow-sm"
+                      :style="{ backgroundColor: getTabColor(tab.trim()) + '20', color: getTabColor(tab.trim()), borderColor: getTabColor(tab.trim()) + '50' }">
+                  {{ tab.trim() }}
+                </span>
               </div>
             </div>
           </div>
+
           <div class="text-center pt-4 mt-2">
             <p class="text-xs text-white/40 font-medium">© Monitoring App</p>
             <p class="text-[10px] text-white/30 mt-1">Dibangun oleh <span class="text-frost/70 font-semibold">RADEXA Solutions</span></p>
           </div>
+
           <button @click="isLogoutModalOpen = true" class="w-full py-4 rounded-2xl bg-red-500/15 border border-red-500/30 text-red-400 font-bold text-sm hover:bg-red-500/25 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(239,68,68,0.2)]">
-            <iconify-icon icon="ph:sign-out-bold" width="24"></iconify-icon> Keluar (Logout)
+            <iconify-icon icon="ph:sign-out-bold" width="24"></iconify-icon>
+            Keluar (Logout)
           </button>
         </div>
+
       </transition>
     </main>
 
     <!-- Bottom Navigation -->
     <nav v-if="isLoggedIn" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 px-4 pb-4 pt-2 pointer-events-none">
       <div class="glass-nav rounded-3xl flex justify-around items-center h-16 px-2 pointer-events-auto">
-        <button v-for="tab in accessibleTabs" :key="tab.id" @click="changeTab(tab.id)" :style="activeTab === tab.id ? { backgroundColor: `${tab.color}30`, borderColor: `${tab.color}80`, boxShadow: `0 0 20px ${tab.glow}, inset 0 2px 2px 0 ${tab.color}66` } : {}" class="flex-1 flex flex-col items-center justify-center h-12 rounded-2xl active:scale-90 transition-all duration-300 border border-transparent">
+        <button v-for="tab in accessibleTabs" :key="tab.id" @click="changeTab(tab.id)" 
+          :style="activeTab === tab.id ? { backgroundColor: `${tab.color}30`, borderColor: `${tab.color}80`, boxShadow: `0 0 20px ${tab.glow}, inset 0 2px 2px 0 ${tab.color}66` } : {}"
+          class="flex-1 flex flex-col items-center justify-center h-12 rounded-2xl active:scale-90 transition-all duration-300 border border-transparent">
           <iconify-icon :icon="tab.icon" width="24" :style="{ color: activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.5)' }"></iconify-icon>
           <span :style="{ color: activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.5)' }" class="text-[9px] tracking-wide mt-1 font-bold">{{ tab.label }}</span>
         </button>
       </div>
     </nav>
 
-    <!-- MODAL FORM -->
+    <!-- ========================================= -->
+    <!-- =========== MODAL FORM MONITORING ======= -->
+    <!-- ========================================= -->
     <transition name="modal">
-      <div v-if="isAppReady && isModalOpen" class="modal-overlay fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="formBackdrop" @click.self="closeModal">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="formSheet">
+      <div v-if="isAppReady && isModalOpen" class="modal-overlay fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" @click.self="closeModal">
+        <div v-swipe-down="closeModal" class="glass-modal-inner glass-panel w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative">
+          
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
           
-          <div class="modal-header flex items-center justify-between mb-6 mt-3 pb-4 border-b border-white/10 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
+          <div class="flex items-center justify-between mb-6 mt-3">
             <div>
               <p class="text-xs text-frost/70 tracking-widest font-medium">FORM MONITORING</p>
               <h3 class="font-display text-xl font-bold text-white">{{ modalTitle }}</h3>
@@ -397,46 +642,92 @@
 
           <form v-if="modalContext === 't1' || modalContext === 't2'" @submit.prevent="submitMonitoringForm" class="space-y-5">
             <div class="grid grid-cols-2 gap-3">
-              <div class="glass-card p-3 rounded-xl"><p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Kode</p><p class="text-sm text-white font-display font-bold">{{ formData.kode }}</p></div>
-              <div class="glass-card p-3 rounded-xl"><p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Periode</p><p class="text-sm text-white font-display font-bold">{{ formData.periode }}</p></div>
+              <div class="glass-card p-3 rounded-xl">
+                <p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Kode</p>
+                <p class="text-sm text-white font-display font-bold">{{ formData.kode }}</p>
+              </div>
+              <div class="glass-card p-3 rounded-xl">
+                <p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Periode</p>
+                <p class="text-sm text-white font-display font-bold">{{ formData.periode }}</p>
+              </div>
             </div>
+
             <div class="relative">
               <label class="text-xs text-white/60 font-medium mb-2 block">Pertumbuhan <span class="text-red-400">*</span></label>
-              <button type="button" @click="isPertumbuhanOpen = !isPertumbuhanOpen" class="w-full px-4 py-3.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl text-sm text-white flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-frost/50 transition-all" :class="{ 'ring-2 ring-frost/50': isPertumbuhanOpen }">
+              <button type="button" @click="isPertumbuhanOpen = !isPertumbuhanOpen" 
+                      class="w-full px-4 py-3.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl text-sm text-white flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-frost/50 transition-all"
+                      :class="{ 'ring-2 ring-frost/50': isPertumbuhanOpen }">
                 <span>{{ formData.pertumbuhan || 'Pilih Pertumbuhan' }}</span>
                 <iconify-icon icon="ph:caret-down-bold" width="16" class="text-frost transition-transform duration-300" :class="{ 'rotate-180': isPertumbuhanOpen }"></iconify-icon>
               </button>
               <transition name="fade">
                 <div v-if="isPertumbuhanOpen" class="glass-dropdown absolute z-50 w-full mt-2 rounded-xl overflow-hidden p-1.5">
-                  <button v-for="opt in pertumbuhanOptions" :key="opt" type="button" @click="selectPertumbuhan(opt)" class="w-full text-left px-4 py-2.5 text-sm rounded-lg transition flex items-center justify-between mb-1 last:mb-0" :class="formData.pertumbuhan === opt ? 'bg-frost/30 text-white font-bold shadow-[inset_0_1px_1px_0_rgba(255,255,255,0.2)]' : 'text-white/70 hover:bg-white/10'">
+                  <button v-for="opt in pertumbuhanOptions" :key="opt" type="button" @click="selectPertumbuhan(opt)"
+                          class="w-full text-left px-4 py-2.5 text-sm rounded-lg transition flex items-center justify-between mb-1 last:mb-0"
+                          :class="formData.pertumbuhan === opt ? 'bg-frost/30 text-white font-bold shadow-[inset_0_1px_1px_0_rgba(255,255,255,0.2)]' : 'text-white/70 hover:bg-white/10'">
                     <span>{{ opt }}</span>
                     <iconify-icon v-if="formData.pertumbuhan === opt" icon="ph:check-bold" width="18" class="text-frost"></iconify-icon>
                   </button>
                 </div>
               </transition>
             </div>
+
             <div>
               <label class="text-xs text-white/60 font-medium mb-2 block">Jumlah Planlet/PLB <span class="text-red-400">*</span></label>
               <div class="flex gap-3">
-                <label class="flex-1 cursor-pointer"><input type="radio" v-model="formData.planlet" value="SEDIKIT" class="peer sr-only"><div class="w-full py-3 text-center text-xs font-semibold rounded-xl border transition-all active:scale-95 hover:border-frost/40" :class="formData.planlet === 'SEDIKIT' ? 'bg-frost/20 text-white border-frost/40 shadow-[0_0_15px_rgba(178,213,229,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">SEDIKIT</div></label>
-                <label class="flex-1 cursor-pointer"><input type="radio" v-model="formData.planlet" value="BANYAK" class="peer sr-only"><div class="w-full py-3 text-center text-xs font-semibold rounded-xl border transition-all active:scale-95 hover:border-frost/40" :class="formData.planlet === 'BANYAK' ? 'bg-frost/20 text-white border-frost/40 shadow-[0_0_15px_rgba(178,213,229,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">BANYAK</div></label>
+                <label class="flex-1 cursor-pointer">
+                  <input type="radio" v-model="formData.planlet" value="SEDIKIT" class="peer sr-only">
+                  <div class="w-full py-3 text-center text-xs font-semibold rounded-xl border transition-all active:scale-95 hover:border-frost/40"
+                       :class="formData.planlet === 'SEDIKIT' ? 'bg-frost/20 text-white border-frost/40 shadow-[0_0_15px_rgba(178,213,229,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">
+                    SEDIKIT
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer">
+                  <input type="radio" v-model="formData.planlet" value="BANYAK" class="peer sr-only">
+                  <div class="w-full py-3 text-center text-xs font-semibold rounded-xl border transition-all active:scale-95 hover:border-frost/40"
+                       :class="formData.planlet === 'BANYAK' ? 'bg-frost/20 text-white border-frost/40 shadow-[0_0_15px_rgba(178,213,229,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">
+                    BANYAK
+                  </div>
+                </label>
               </div>
             </div>
+
             <div>
-              <label class="text-xs text-white/60 font-medium mb-3 flex justify-between"><span>Presentase <span class="text-red-400">*</span></span><span class="text-frost font-bold">{{ formData.persentase || 0 }}%</span></label>
+              <label class="text-xs text-white/60 font-medium mb-3 flex justify-between">
+                <span>presentase <span class="text-red-400">*</span></span>
+                <span class="text-frost font-bold">{{ formData.persentase || 0 }}%</span>
+              </label>
               <input type="range" min="0" max="100" step="5" v-model="formData.persentase" class="custom-range w-full mt-2" :style="sliderStyle">
             </div>
+
             <div>
-              <label class="text-xs text-white/60 font-medium mb-2 block flex items-center gap-2">Keterangan Kondisi <span class="text-[9px] bg-frost/20 text-frost px-1.5 py-0.5 rounded-md border border-frost/30">OTOMATIS</span></label>
+              <label class="text-xs text-white/60 font-medium mb-2 block flex items-center gap-2">
+                Keterangan Kondisi 
+                <span class="text-[9px] bg-frost/20 text-frost px-1.5 py-0.5 rounded-md border border-frost/30">OTOMATIS</span>
+              </label>
               <textarea v-model="formData.keterangan" rows="2" readonly class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white/70 focus:outline-none transition-all resize-none cursor-not-allowed"></textarea>
             </div>
+
             <div>
               <label class="text-xs text-white/60 font-medium mb-2 block">Status <span class="text-red-400">*</span></label>
               <div class="flex gap-3">
-                <label class="flex-1 cursor-pointer"><input type="radio" v-model="formData.status" value="PENDING" class="peer sr-only"><div class="w-full py-3 text-center text-xs font-semibold rounded-xl border transition-all active:scale-95 hover:border-yellow-500/40" :class="formData.status === 'PENDING' ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40 shadow-[0_0_15px_rgba(234,179,8,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">PENDING</div></label>
-                <label class="flex-1 cursor-pointer"><input type="radio" v-model="formData.status" value="BERHASIL" class="peer sr-only"><div class="w-full py-3 text-center text-xs font-semibold rounded-xl border transition-all active:scale-95 hover:border-green-500/40" :class="formData.status === 'BERHASIL' ? 'bg-green-500/20 text-green-400 border-green-500/40 shadow-[0_0_15px_rgba(34,197,94,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">BERHASIL</div></label>
+                <label class="flex-1 cursor-pointer">
+                  <input type="radio" v-model="formData.status" value="PENDING" class="peer sr-only">
+                  <div class="w-full py-3 text-center text-xs font-semibold rounded-xl border transition-all active:scale-95 hover:border-yellow-500/40"
+                       :class="formData.status === 'PENDING' ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40 shadow-[0_0_15px_rgba(234,179,8,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">
+                    PENDING
+                  </div>
+                </label>
+                <label class="flex-1 cursor-pointer">
+                  <input type="radio" v-model="formData.status" value="BERHASIL" class="peer sr-only">
+                  <div class="w-full py-3 text-center text-xs font-semibold rounded-xl border transition-all active:scale-95 hover:border-green-500/40"
+                       :class="formData.status === 'BERHASIL' ? 'bg-green-500/20 text-green-400 border-green-500/40 shadow-[0_0_15px_rgba(34,197,94,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">
+                    BERHASIL
+                  </div>
+                </label>
               </div>
             </div>
+
             <div>
               <label class="text-xs text-white/60 font-medium mb-2 block">Ambil Foto <span class="text-red-400">*</span></label>
               <label class="w-full h-44 border-2 border-dashed border-white/20 rounded-xl cursor-pointer hover:bg-white/5 hover:border-frost/40 transition active:scale-[0.98] overflow-hidden relative grid place-items-center">
@@ -448,71 +739,106 @@
                 <input @change="handleFileUpload" type="file" accept="image/*" capture="environment" class="hidden" />
               </label>
             </div>
+
             <div v-if="formError" class="text-red-400 text-xs text-center bg-red-500/10 py-2 rounded-xl border border-red-500/20">{{ formError }}</div>
+
             <button type="submit" :disabled="isSubmitting" class="w-full py-3.5 rounded-2xl bg-frost text-night font-bold text-sm hover:bg-white/80 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(178,213,229,0.3)] disabled:opacity-50">
               <span>{{ isSubmitting ? 'Menyimpan...' : 'Simpan Data Monitoring' }}</span>
             </button>
           </form>
 
           <form v-else-if="modalContext === 't3'" @submit.prevent="submitTrans3Form" class="space-y-5">
-            <div class="glass-card p-3 rounded-xl"><p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Kode Botol</p><p class="text-sm text-white font-display font-bold">{{ formData.kode }}</p></div>
-            <div>
-              <label class="text-xs text-white/60 font-medium mb-2 block">Warna Daun <span class="text-red-400">*</span></label>
-              <input v-model="formData.warnaDaun" type="text" class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-frost/50 transition-all" placeholder="Contoh: Hijau, Kuning">
-            </div>
-            <div>
-              <label class="text-xs text-white/60 font-medium mb-2 block">Jumlah Botol <span class="text-red-400">*</span></label>
-              <div class="flex items-stretch bg-white/5 border border-white/10 rounded-xl backdrop-blur-xl overflow-hidden hover:border-white/20 transition">
-                <button type="button" @click="decrement('jumlahBotol')" class="w-12 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition"><iconify-icon icon="ph:minus-bold" width="18"></iconify-icon></button>
-                <input v-model="formData.jumlahBotol" type="number" min="0" class="w-full text-center bg-transparent border-x border-white/10 focus:ring-0 focus:outline-none text-sm text-white placeholder-white/30 py-3.5" placeholder="0">
-                <button type="button" @click="increment('jumlahBotol')" class="w-12 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition"><iconify-icon icon="ph:plus-bold" width="18"></iconify-icon></button>
+             <div class="glass-card p-3 rounded-xl">
+                <p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Kode Botol</p>
+                <p class="text-sm text-white font-display font-bold">{{ formData.kode }}</p>
               </div>
-            </div>
-            <div>
-              <label class="text-xs text-white/60 font-medium mb-2 block">Catatan</label>
-              <textarea v-model="formData.catatan" rows="2" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-frost/50 transition-all resize-none" placeholder="Catatan pengamatan..."></textarea>
-            </div>
-            <div>
-              <label class="text-xs text-white/60 font-medium mb-2 block">Status <span class="text-red-400">*</span></label>
-              <div class="flex gap-2">
-                <label class="flex-1 cursor-pointer"><input type="radio" v-model="formData.status" value="PENDING" class="peer sr-only"><div class="w-full py-3 text-center text-[11px] font-semibold rounded-xl border transition-all active:scale-95 hover:border-yellow-500/40" :class="formData.status === 'PENDING' ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40 shadow-[0_0_15px_rgba(234,179,8,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">PENDING</div></label>
-                <label class="flex-1 cursor-pointer"><input type="radio" v-model="formData.status" value="BERHASIL" class="peer sr-only"><div class="w-full py-3 text-center text-[11px] font-semibold rounded-xl border transition-all active:scale-95 hover:border-green-500/40" :class="formData.status === 'BERHASIL' ? 'bg-green-500/20 text-green-400 border-green-500/40 shadow-[0_0_15px_rgba(34,197,94,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">BERHASIL</div></label>
-                <label class="flex-1 cursor-pointer"><input type="radio" v-model="formData.status" value="GAGAL" class="peer sr-only"><div class="w-full py-3 text-center text-[11px] font-semibold rounded-xl border transition-all active:scale-95 hover:border-red-500/40" :class="formData.status === 'GAGAL' ? 'bg-red-500/20 text-red-400 border-red-500/40 shadow-[0_0_15px_rgba(239,68,68,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">GAGAL</div></label>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="text-xs text-white/60 font-medium mb-2 block">Rek. Pembesaran</label>
+                <label class="text-xs text-white/60 font-medium mb-2 block">Warna Daun <span class="text-red-400">*</span></label>
+                <input v-model="formData.warnaDaun" type="text" class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-frost/50 transition-all" placeholder="Contoh: Hijau, Kuning">
+              </div>
+              <div>
+                <label class="text-xs text-white/60 font-medium mb-2 block">Jumlah Botol <span class="text-red-400">*</span></label>
                 <div class="flex items-stretch bg-white/5 border border-white/10 rounded-xl backdrop-blur-xl overflow-hidden hover:border-white/20 transition">
-                  <button type="button" @click="decrement('rekPembesaran')" class="w-10 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition"><iconify-icon icon="ph:minus-bold" width="16"></iconify-icon></button>
-                  <input v-model="formData.rekPembesaran" type="number" min="0" class="w-full text-center bg-transparent border-x border-white/10 focus:ring-0 focus:outline-none text-sm text-white placeholder-white/30 py-3" placeholder="0">
-                  <button type="button" @click="increment('rekPembesaran')" class="w-10 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition"><iconify-icon icon="ph:plus-bold" width="16"></iconify-icon></button>
+                  <button type="button" @click="decrement('jumlahBotol')" class="w-12 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition">
+                    <iconify-icon icon="ph:minus-bold" width="18"></iconify-icon>
+                  </button>
+                  <input v-model="formData.jumlahBotol" type="number" min="0" class="w-full text-center bg-transparent border-x border-white/10 focus:ring-0 focus:outline-none text-sm text-white placeholder-white/30 py-3.5" placeholder="0">
+                  <button type="button" @click="increment('jumlahBotol')" class="w-12 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition">
+                    <iconify-icon icon="ph:plus-bold" width="18"></iconify-icon>
+                  </button>
                 </div>
               </div>
               <div>
-                <label class="text-xs text-white/60 font-medium mb-2 block">Rek. Penjualan</label>
-                <div class="flex items-stretch bg-white/5 border border-white/10 rounded-xl backdrop-blur-xl overflow-hidden hover:border-white/20 transition">
-                  <button type="button" @click="decrement('rekPenjualan')" class="w-10 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition"><iconify-icon icon="ph:minus-bold" width="16"></iconify-icon></button>
-                  <input v-model="formData.rekPenjualan" type="number" min="0" class="w-full text-center bg-transparent border-x border-white/10 focus:ring-0 focus:outline-none text-sm text-white placeholder-white/30 py-3" placeholder="0">
-                  <button type="button" @click="increment('rekPenjualan')" class="w-10 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition"><iconify-icon icon="ph:plus-bold" width="16"></iconify-icon></button>
+                <label class="text-xs text-white/60 font-medium mb-2 block">Catatan</label>
+                <textarea v-model="formData.catatan" rows="2" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-frost/50 transition-all resize-none" placeholder="Catatan pengamatan..."></textarea>
+              </div>
+              <div>
+                <label class="text-xs text-white/60 font-medium mb-2 block">Status <span class="text-red-400">*</span></label>
+                <div class="flex gap-2">
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" v-model="formData.status" value="PENDING" class="peer sr-only">
+                    <div class="w-full py-3 text-center text-[11px] font-semibold rounded-xl border transition-all active:scale-95 hover:border-yellow-500/40"
+                         :class="formData.status === 'PENDING' ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40 shadow-[0_0_15px_rgba(234,179,8,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">
+                      PENDING
+                    </div>
+                  </label>
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" v-model="formData.status" value="BERHASIL" class="peer sr-only">
+                    <div class="w-full py-3 text-center text-[11px] font-semibold rounded-xl border transition-all active:scale-95 hover:border-green-500/40"
+                         :class="formData.status === 'BERHASIL' ? 'bg-green-500/20 text-green-400 border-green-500/40 shadow-[0_0_15px_rgba(34,197,94,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">
+                      BERHASIL
+                    </div>
+                  </label>
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" v-model="formData.status" value="GAGAL" class="peer sr-only">
+                    <div class="w-full py-3 text-center text-[11px] font-semibold rounded-xl border transition-all active:scale-95 hover:border-red-500/40"
+                         :class="formData.status === 'GAGAL' ? 'bg-red-500/20 text-red-400 border-red-500/40 shadow-[0_0_15px_rgba(239,68,68,0.3)]' : 'bg-white/5 text-white/50 border-white/10'">
+                      GAGAL
+                    </div>
+                  </label>
                 </div>
               </div>
-            </div>
-            <div>
-              <label class="text-xs text-white/60 font-medium mb-2 block">Ambil Foto <span class="text-red-400">*</span></label>
-              <label class="w-full h-44 border-2 border-dashed border-white/20 rounded-xl cursor-pointer hover:bg-white/5 hover:border-frost/40 transition active:scale-[0.98] overflow-hidden relative grid place-items-center">
-                <div v-if="!formData.fotoPreview" class="flex flex-col items-center justify-center text-center px-4 py-6">
-                  <iconify-icon icon="ph:camera-bold" width="48" class="text-white/40 mb-3"></iconify-icon>
-                  <p class="text-xs text-white/50"><span class="font-semibold text-frost">Klik untuk buka kamera</span></p>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-xs text-white/60 font-medium mb-2 block">Rek. Pembesaran</label>
+                  <div class="flex items-stretch bg-white/5 border border-white/10 rounded-xl backdrop-blur-xl overflow-hidden hover:border-white/20 transition">
+                    <button type="button" @click="decrement('rekPembesaran')" class="w-10 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition">
+                      <iconify-icon icon="ph:minus-bold" width="16"></iconify-icon>
+                    </button>
+                    <input v-model="formData.rekPembesaran" type="number" min="0" class="w-full text-center bg-transparent border-x border-white/10 focus:ring-0 focus:outline-none text-sm text-white placeholder-white/30 py-3" placeholder="0">
+                    <button type="button" @click="increment('rekPembesaran')" class="w-10 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition">
+                      <iconify-icon icon="ph:plus-bold" width="16"></iconify-icon>
+                    </button>
+                  </div>
                 </div>
-                <img v-if="formData.fotoPreview" :src="formData.fotoPreview" class="absolute inset-0 w-full h-full object-cover" alt="Preview">
-                <input @change="handleFileUpload" type="file" accept="image/*" capture="environment" class="hidden" />
-              </label>
-            </div>
-            <div v-if="formError" class="text-red-400 text-xs text-center bg-red-500/10 py-2 rounded-xl border border-red-500/20">{{ formError }}</div>
-            <button type="submit" :disabled="isSubmitting" class="w-full py-3.5 rounded-2xl bg-frost text-night font-bold text-sm hover:bg-white/80 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(178,213,229,0.3)] disabled:opacity-50">
-              <span>{{ isSubmitting ? 'Menyimpan...' : 'Simpan Data Kondisi' }}</span>
-            </button>
+                <div>
+                  <label class="text-xs text-white/60 font-medium mb-2 block">Rek. Penjualan</label>
+                  <div class="flex items-stretch bg-white/5 border border-white/10 rounded-xl backdrop-blur-xl overflow-hidden hover:border-white/20 transition">
+                    <button type="button" @click="decrement('rekPenjualan')" class="w-10 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition">
+                      <iconify-icon icon="ph:minus-bold" width="16"></iconify-icon>
+                    </button>
+                    <input v-model="formData.rekPenjualan" type="number" min="0" class="w-full text-center bg-transparent border-x border-white/10 focus:ring-0 focus:outline-none text-sm text-white placeholder-white/30 py-3" placeholder="0">
+                    <button type="button" @click="increment('rekPenjualan')" class="w-10 flex items-center justify-center text-frost hover:bg-white/10 active:scale-95 transition">
+                      <iconify-icon icon="ph:plus-bold" width="16"></iconify-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-white/60 font-medium mb-2 block">Ambil Foto <span class="text-red-400">*</span></label>
+                <label class="w-full h-44 border-2 border-dashed border-white/20 rounded-xl cursor-pointer hover:bg-white/5 hover:border-frost/40 transition active:scale-[0.98] overflow-hidden relative grid place-items-center">
+                  <div v-if="!formData.fotoPreview" class="flex flex-col items-center justify-center text-center px-4 py-6">
+                    <iconify-icon icon="ph:camera-bold" width="48" class="text-white/40 mb-3"></iconify-icon>
+                    <p class="text-xs text-white/50"><span class="font-semibold text-frost">Klik untuk buka kamera</span></p>
+                  </div>
+                  <img v-if="formData.fotoPreview" :src="formData.fotoPreview" class="absolute inset-0 w-full h-full object-cover" alt="Preview">
+                  <input @change="handleFileUpload" type="file" accept="image/*" capture="environment" class="hidden" />
+                </label>
+              </div>
+              <div v-if="formError" class="text-red-400 text-xs text-center bg-red-500/10 py-2 rounded-xl border border-red-500/20">{{ formError }}</div>
+              <button type="submit" :disabled="isSubmitting" class="w-full py-3.5 rounded-2xl bg-frost text-night font-bold text-sm hover:bg-white/80 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(178,213,229,0.3)] disabled:opacity-50">
+                <span>{{ isSubmitting ? 'Menyimpan...' : 'Simpan Data Kondisi' }}</span>
+              </button>
           </form>
 
           <div v-else-if="modalContext === 'result'" class="space-y-4">
@@ -521,71 +847,134 @@
               <div v-else class="w-full h-full flex items-center justify-center text-white/30 text-sm">Tidak Ada Foto</div>
             </div>
             <div class="grid grid-cols-2 gap-3">
-              <div class="glass-card p-3 rounded-xl"><p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Kode</p><p class="text-sm text-white font-display font-bold">{{ formData.kode }}</p></div>
-              <div class="glass-card p-3 rounded-xl"><p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Status</p><p class="text-sm font-display font-bold" :class="getStatusTextClass(formData.status)">{{ formData.status }}</p></div>
-              <div class="glass-card p-3 rounded-xl"><p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Periode</p><p class="text-sm text-white font-bold">{{ formData.periode }}</p></div>
-              <div class="glass-card p-3 rounded-xl"><p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Rak</p><p class="text-sm text-white font-bold">{{ formData.rak }}</p></div>
+              <div class="glass-card p-3 rounded-xl">
+                <p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Kode</p>
+                <p class="text-sm text-white font-display font-bold">{{ formData.kode }}</p>
+              </div>
+              <div class="glass-card p-3 rounded-xl">
+                <p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Status</p>
+                <p class="text-sm font-display font-bold" :class="getStatusTextClass(formData.status)">{{ formData.status }}</p>
+              </div>
+              <div class="glass-card p-3 rounded-xl">
+                <p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Periode</p>
+                <p class="text-sm text-white font-bold">{{ formData.periode }}</p>
+              </div>
+              <div class="glass-card p-3 rounded-xl">
+                <p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Rak</p>
+                <p class="text-sm text-white font-bold">{{ formData.rak }}</p>
+              </div>
             </div>
-            <div class="glass-card p-3 rounded-xl"><p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Nama Silangan</p><p class="text-sm text-white font-bold">{{ formData.silangan || '-' }}</p></div>
-            <button @click="closeModal" class="w-full py-3.5 rounded-2xl bg-white/10 text-white font-bold text-sm hover:bg-white/20 active:scale-95 transition-all duration-300 border border-white/10">Tutup</button>
+            <div class="glass-card p-3 rounded-xl">
+              <p class="text-[10px] text-white/50 uppercase tracking-wider mb-1">Nama Silangan</p>
+              <p class="text-sm text-white font-bold">{{ formData.silangan || '-' }}</p>
+            </div>
+            <button @click="closeModal" class="w-full py-3.5 rounded-2xl bg-white/10 text-white font-bold text-sm hover:bg-white/20 active:scale-95 transition-all duration-300 border border-white/10">
+              Tutup
+            </button>
           </div>
+
         </div>
       </div>
     </transition>
 
-    <!-- MODAL RIWAYAT SYNC -->
+    <!-- ========================================= -->
+    <!-- ======== MODAL RIWAYAT SYNC ============= -->
+    <!-- ========================================= -->
     <transition name="modal">
-      <div v-if="isAppReady && isSyncModalOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="syncBackdrop" @click.self="isSyncModalOpen = false">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="syncSheet">
+      <div v-if="isAppReady && isSyncModalOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" @click.self="isSyncModalOpen = false">
+        <div v-swipe-down="() => isSyncModalOpen = false" class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
-          <div class="modal-header flex items-center justify-between mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
-            <div><p class="text-xs text-frost/70 tracking-widest font-medium">RIWAYAT SERVER</p><h3 class="font-display text-xl font-bold text-white">Data Sync</h3></div>
-            <button @click="isSyncModalOpen = false" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 active:scale-90 transition"><iconify-icon icon="ph:x-bold" width="20"></iconify-icon></button>
+          
+          <div class="flex items-center justify-between mb-6 mt-3">
+            <div>
+              <p class="text-xs text-frost/70 tracking-widest font-medium">RIWAYAT SERVER</p>
+              <h3 class="font-display text-xl font-bold text-white">Data Sync</h3>
+            </div>
+            <button @click="isSyncModalOpen = false" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 active:scale-90 transition">
+              <iconify-icon icon="ph:x-bold" width="20"></iconify-icon>
+            </button>
           </div>
-          <div v-if="syncedData.length === 0" class="text-center py-10 text-white/30 text-sm">Belum ada data yang tersinkron ke server.</div>
+
+          <div v-if="syncedData.length === 0" class="text-center py-10 text-white/30 text-sm">
+            Belum ada data yang tersinkron ke server.
+          </div>
+
           <div v-else class="space-y-3">
             <div v-for="item in syncedData" :key="item.id" class="glass-card p-4 rounded-2xl flex items-center justify-between">
               <div class="min-w-0 flex-1">
                 <p class="text-sm font-bold text-white font-display truncate">{{ item.kode }}</p>
-                <div class="flex items-center gap-2 mt-1 flex-wrap"><p class="text-xs text-white/50">Periode: {{ item.periode }}</p><span class="text-white/30">•</span><p class="text-xs text-white/50">{{ item.time }}</p></div>
+                <div class="flex items-center gap-2 mt-1 flex-wrap">
+                  <p class="text-xs text-white/50">Periode: {{ item.periode }}</p>
+                  <span class="text-white/30">•</span>
+                  <p class="text-xs text-white/50">{{ item.time }}</p>
+                </div>
               </div>
-              <span :class="getStatusClass(item.status)" class="px-2.5 py-1 text-[10px] font-bold rounded-full border whitespace-nowrap ml-3">{{ item.status }}</span>
+              <span :class="getStatusClass(item.status)" class="px-2.5 py-1 text-[10px] font-bold rounded-full border whitespace-nowrap ml-3">
+                {{ item.status }}
+              </span>
             </div>
           </div>
         </div>
       </div>
     </transition>
 
-    <!-- MODAL NOTIFIKASI -->
+    <!-- ========================================= -->
+    <!-- ======== MODAL NOTIFIKASI =============== -->
+    <!-- ========================================= -->
     <transition name="modal">
-      <div v-if="isAppReady && isNotifOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" ref="notifBackdrop" @click.self="isNotifOpen = false">
-        <div class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative" ref="notifSheet">
+      <div v-if="isAppReady && isNotifOpen" class="modal-overlay fixed inset-0 z-[65] flex items-end sm:items-center justify-center bg-night/80 backdrop-blur-md" @click.self="isNotifOpen = false">
+        <div v-swipe-down="() => isNotifOpen = false" class="glass-modal-inner glass-panel w-full max-w-md max-h-[80vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 relative">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
-          <div class="modal-header flex items-center justify-between mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
-            <div><p class="text-xs text-frost/70 tracking-widest font-medium">AKTIVITAS</p><h3 class="font-display text-xl font-bold text-white">Notifikasi Terbaru</h3></div>
-            <button @click="isNotifOpen = false" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 active:scale-90 transition"><iconify-icon icon="ph:x-bold" width="20"></iconify-icon></button>
+          
+          <div class="flex items-center justify-between mb-6 mt-3">
+            <div>
+              <p class="text-xs text-frost/70 tracking-widest font-medium">AKTIVITAS</p>
+              <h3 class="font-display text-xl font-bold text-white">Notifikasi Terbaru</h3>
+            </div>
+            <button @click="isNotifOpen = false" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 active:scale-90 transition">
+              <iconify-icon icon="ph:x-bold" width="20"></iconify-icon>
+            </button>
           </div>
-          <div v-if="recentActivities.length === 0" class="text-center py-10 text-white/30 text-sm">Tidak ada aktivitas baru.</div>
+
+          <div v-if="recentActivities.length === 0" class="text-center py-10 text-white/30 text-sm">
+            Tidak ada aktivitas baru.
+          </div>
+
           <div v-else class="space-y-3">
             <div v-for="act in recentActivities" :key="act.id" class="glass-card p-4 rounded-2xl flex items-center justify-between">
               <div class="min-w-0 flex-1">
                 <p class="text-sm font-bold text-white font-display truncate">{{ act.kode }}</p>
-                <div class="flex items-center gap-2 mt-1 flex-wrap"><p class="text-xs text-white/50">Periode: {{ act.periode }}</p><span class="text-white/30">•</span><p class="text-xs text-white/50">{{ act.time }}</p><template v-if="act.persentase"><span class="text-white/30">•</span><p class="text-xs font-bold text-frost">{{ act.persentase }}</p></template></div>
+                <div class="flex items-center gap-2 mt-1 flex-wrap">
+                  <p class="text-xs text-white/50">Periode: {{ act.periode }}</p>
+                  <span class="text-white/30">•</span>
+                  <p class="text-xs text-white/50">{{ act.time }}</p>
+                  <template v-if="act.persentase">
+                    <span class="text-white/30">•</span>
+                    <p class="text-xs font-bold text-frost">{{ act.persentase }}</p>
+                  </template>
+                </div>
               </div>
-              <span :class="getStatusClass(act.status)" class="px-2.5 py-1 text-[10px] font-bold rounded-full border whitespace-nowrap ml-3">{{ act.status }}</span>
+              <span :class="getStatusClass(act.status)" class="px-2.5 py-1 text-[10px] font-bold rounded-full border whitespace-nowrap ml-3">
+                {{ act.status }}
+              </span>
             </div>
           </div>
         </div>
       </div>
     </transition>
 
-    <!-- MODAL LOGOUT -->
+    <!-- ========================================= -->
+    <!-- ======== MODAL KONFIRMASI LOGOUT ======== -->
+    <!-- ========================================= -->
     <transition name="modal">
-      <div v-if="isAppReady && isLogoutModalOpen" class="modal-overlay fixed inset-0 z-[70] flex items-center justify-center bg-night/80 backdrop-blur-md px-8" ref="logoutBackdrop" @click.self="isLogoutModalOpen = false">
-        <div class="glass-modal-inner glass-panel w-full max-w-sm rounded-3xl p-6 relative" ref="logoutSheet">
+      <div v-if="isAppReady && isLogoutModalOpen" class="modal-overlay fixed inset-0 z-[70] flex items-center justify-center bg-night/80 backdrop-blur-md px-8" @click.self="isLogoutModalOpen = false">
+        <div v-swipe-down="() => isLogoutModalOpen = false" class="glass-modal-inner glass-panel w-full max-w-sm rounded-3xl p-6 relative">
           <div class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full"></div>
-          <div class="modal-header text-center mb-6 mt-3 cursor-grab" style="touch-action: none;" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
-            <div class="w-14 h-14 mx-auto rounded-2xl bg-red-500/15 flex items-center justify-center border border-red-500/30 mb-4 shadow-[0_0_20px_rgba(239,68,68,0.2)]"><iconify-icon icon="ph:warning-circle-bold" width="32" class="text-red-400"></iconify-icon></div>
+          
+          <div class="text-center mb-6 mt-3">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-red-500/15 flex items-center justify-center border border-red-500/30 mb-4 shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+              <iconify-icon icon="ph:warning-circle-bold" width="32" class="text-red-400"></iconify-icon>
+            </div>
             <h3 class="font-display text-lg font-bold text-white">Konfirmasi Keluar</h3>
             <p class="text-sm text-white/60 mt-1">Apakah Anda yakin ingin mengakhiri sesi ini?</p>
           </div>
@@ -599,14 +988,12 @@
 
   </div>
 
-  <!-- Vue Script -->
+  <!-- Vue 3 Composition API Script -->
   <script>
     const { createApp, ref, computed, watch, reactive, nextTick, onMounted } = Vue;
 
     createApp({
       setup() {
-        const API_URL = 'https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec';
-        
         const isAppReady = ref(false);
         const isLoggedIn = ref(false);
         const isLoggingIn = ref(false);
@@ -619,6 +1006,10 @@
         const searchQuery = ref('');
         const displayLimit = ref(15); 
         const mainContainer = ref(null); 
+
+        // State Sorting Default Rak Menurun/Menaik
+        const sortKey = ref('rak');
+        const sortOrder = ref('asc');
 
         const trans1Data = ref([]);
         const trans2Data = ref([]);
@@ -639,85 +1030,19 @@
         const formError = ref('');
         const formData = reactive({});
         
-        // Refs for Swipe Down
-        const formSheet = ref(null); const formBackdrop = ref(null);
-        const syncSheet = ref(null); const syncBackdrop = ref(null);
-        const notifSheet = ref(null); const notifBackdrop = ref(null);
-        const logoutSheet = ref(null); const logoutBackdrop = ref(null);
+        onMounted(() => {
+          nextTick(() => {
+            isAppReady.value = true;
+          });
+        });
         
-        const touchStartY = ref(0);
-        let currentSheet = null; let currentBackdrop = null;
-
-        onMounted(() => { nextTick(() => { isAppReady.value = true; }); });
-        
-        // === SWIPE DOWN HANDLERS (Adopted from Reference) ===
-        const onTouchStart = (e) => {
-          touchStartY.value = e.touches[0].clientY;
-          
-          if (isModalOpen.value) { currentSheet = formSheet.value; currentBackdrop = formBackdrop.value; }
-          else if (isSyncModalOpen.value) { currentSheet = syncSheet.value; currentBackdrop = syncBackdrop.value; }
-          else if (isNotifOpen.value) { currentSheet = notifSheet.value; currentBackdrop = notifBackdrop.value; }
-          else if (isLogoutModalOpen.value) { currentSheet = logoutSheet.value; currentBackdrop = logoutBackdrop.value; }
-
-          if (currentSheet) {
-            currentSheet.style.transition = 'none'; 
-            if(currentBackdrop) currentBackdrop.style.transition = 'none';
-          }
-        };
-        
-        const onTouchMove = (e) => {
-          if (!currentSheet) return;
-          let diff = e.touches[0].clientY - touchStartY.value;
-          if (diff > 0) {
-            e.preventDefault(); 
-            currentSheet.style.transform = `translateY(${diff}px)`;
-            if(currentBackdrop) currentBackdrop.style.opacity = 1 - (diff / 500);
-          }
-        };
-        
-        const onTouchEnd = () => {
-          if (!currentSheet) return;
-          
-          currentSheet.style.transition = 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease'; 
-          if(currentBackdrop) currentBackdrop.style.transition = 'opacity 0.3s ease';
-          
-          let currentTranslate = 0;
-          if (currentSheet.style.transform) {
-            let match = currentSheet.style.transform.match(/-?\d+/);
-            if (match) currentTranslate = parseInt(match[0]);
-          }
-
-          if (currentTranslate > 100) {
-            if (isModalOpen.value) closeModal();
-            if (isSyncModalOpen.value) isSyncModalOpen.value = false;
-            if (isNotifOpen.value) isNotifOpen.value = false;
-            if (isLogoutModalOpen.value) isLogoutModalOpen.value = false;
-          } else {
-            currentSheet.style.transform = 'translateY(0)';
-            if(currentBackdrop) currentBackdrop.style.opacity = 1;
-          }
-          
-          currentSheet = null;
-          currentBackdrop = null;
-        };
-
-        // Helper API Fetch
-        const fetchAPI = async (action, payload = null) => {
-          try {
-            if (payload) {
-              const res = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify({ action, ...payload })
-              });
-              return await res.json();
-            } else {
-              const res = await fetch(`${API_URL}?action=${action}`);
-              return await res.json();
+        const runAsync = (funcName, ...args) => {
+          return new Promise((resolve, reject) => {
+            if (typeof google === 'undefined' || !google.script) {
+              return resolve({ error: "Local mode" });
             }
-          } catch (err) {
-            return { error: "Koneksi gagal: " + err.message };
-          }
+            google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)[funcName](...args);
+          });
         };
 
         const compressImage = (file, maxWidth = 1024, quality = 0.7) => {
@@ -729,8 +1054,12 @@
                 let canvas = document.createElement('canvas');
                 let width = img.width;
                 let height = img.height;
-                if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
-                canvas.width = width; canvas.height = height;
+                if (width > maxWidth) {
+                  height = Math.round((height * maxWidth) / width);
+                  width = maxWidth;
+                }
+                canvas.width = width;
+                canvas.height = height;
                 let ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
                 resolve(canvas.toDataURL('image/jpeg', quality));
@@ -760,7 +1089,7 @@
           if (!loginForm.username || !loginForm.password) { loginError.value = "Username dan password wajib diisi."; return; }
           isLoggingIn.value = true; loginError.value = '';
           try {
-            const res = await fetchAPI('login', { username: loginForm.username, password: loginForm.password });
+            const res = await runAsync('loginUser', loginForm.username, loginForm.password);
             if (res.error) { loginError.value = res.error; } 
             else {
               currentUser.value = res;
@@ -787,11 +1116,7 @@
         const fetchAllData = async () => {
           isFetching.value = true;
           try {
-            const [monRes, t3Res, resultRes] = await Promise.all([
-              fetchAPI('getMonitoringData'),
-              fetchAPI('getTrans3Data'),
-              fetchAPI('getResultData')
-            ]);
+            const [monRes, t3Res, resultRes] = await Promise.all([runAsync('getMonitoringData'), runAsync('getTrans3Data'), runAsync('getResultData')]);
             if (!monRes.error) { trans1Data.value = monRes.trans1 || []; trans2Data.value = monRes.trans2 || []; }
             if (!t3Res.error) { trans3Data.value = t3Res.trans3 || []; }
             if (!resultRes.error) { resultData.value = resultRes.result || []; }
@@ -822,10 +1147,7 @@
           const file = e.target.files[0]; if (!file) return;
           try {
             const compressedDataUrl = await compressImage(file);
-            formData.fileData = compressedDataUrl.split(',')[1]; 
-            formData.mimeType = 'image/jpeg'; 
-            formData.fotoPreview = compressedDataUrl; 
-            formError.value = '';
+            formData.fileData = compressedDataUrl.split(',')[1]; formData.mimeType = 'image/jpeg'; formData.fotoPreview = compressedDataUrl; formError.value = '';
           } catch (err) { formError.value = err.message; formData.fotoPreview = null; formData.fileData = null; } 
           finally { e.target.value = ''; }
         };
@@ -841,51 +1163,25 @@
         const increment = (field) => { let val = parseInt(formData[field]); if (isNaN(val)) val = 0; formData[field] = val + 1; };
         const decrement = (field) => { let val = parseInt(formData[field]); if (isNaN(val)) val = 0; formData[field] = Math.max(0, val - 1); };
 
-        const submitMonitoringForm = async () => {
+        const submitMonitoringForm = () => {
           if (isSubmitting.value) return; if (!formData.fileData) { formError.value = "Foto wajib diunggah."; return; }
-          isSubmitting.value = true; 
-          const payload = { ...formData }; 
-          payload.persentase = `${payload.persentase || 0}%`; 
-          closeModal();
-          
+          isSubmitting.value = true; const payload = { ...formData }; payload.persentase = `${payload.persentase || 0}%`; closeModal();
           let targetArray = [];
           const periodeUpper = payload.periode.toUpperCase();
           if (periodeUpper.includes('T1') || periodeUpper.includes('TRANS 1')) targetArray = trans1Data.value;
           else if (periodeUpper.includes('T2') || periodeUpper.includes('TRANS 2')) targetArray = trans2Data.value;
-          const index = targetArray.findIndex(i => i.kode === payload.kode); 
-          if (index !== -1) targetArray.splice(index, 1);
-          
+          const index = targetArray.findIndex(i => i.kode === payload.kode); if (index !== -1) targetArray.splice(index, 1);
           addActivity(payload.kode, payload.periode, payload.status, payload.persentase);
-          
-          try {
-            const res = await fetchAPI('saveMonitoringData', payload);
-            if (res === "SUCCESS") { 
-              addSyncedData(payload.kode, payload.periode, payload.status, new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })); 
-            } else { alert("Gagal: " + (res.error || res)); fetchAllData(); }
-          } catch (err) { alert("Koneksi putus!"); fetchAllData(); }
-          finally { isSubmitting.value = false; }
+          runAsync('saveMonitoringData', payload).then(res => { if (res === "SUCCESS") { addSyncedData(payload.kode, payload.periode, payload.status, new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })); } else { alert("Gagal: " + (res.error || res)); fetchAllData(); } }).catch(err => { alert("Koneksi putus!"); fetchAllData(); }).finally(() => { isSubmitting.value = false; });
         };
 
-        const submitTrans3Form = async () => {
-          if (isSubmitting.value) return; 
-          if (!formData.warnaDaun || formData.jumlahBotol === '' || formData.jumlahBotol === null) { formError.value = "Warna daun dan jumlah botol wajib diisi."; return; }
+        const submitTrans3Form = () => {
+          if (isSubmitting.value) return; if (!formData.warnaDaun || formData.jumlahBotol === '' || formData.jumlahBotol === null) { formError.value = "Warna daun dan jumlah botol wajib diisi."; return; }
           if (!formData.fileData) { formError.value = "Foto wajib diunggah."; return; }
-          
-          isSubmitting.value = true; 
-          const payload = { ...formData }; 
-          closeModal();
-          
-          const index = trans3Data.value.findIndex(i => i.kode === payload.kode); 
-          if (index !== -1) trans3Data.value.splice(index, 1);
+          isSubmitting.value = true; const payload = { ...formData }; closeModal();
+          const index = trans3Data.value.findIndex(i => i.kode === payload.kode); if (index !== -1) trans3Data.value.splice(index, 1);
           addActivity(payload.kode, 'T3', payload.status);
-          
-          try {
-            const res = await fetchAPI('saveTrans3Data', payload);
-            if (res === "SUCCESS") { 
-              addSyncedData(payload.kode, 'T3', payload.status, new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })); 
-            } else { alert("Gagal: " + (res.error || res)); fetchAllData(); }
-          } catch (err) { alert("Koneksi putus!"); fetchAllData(); }
-          finally { isSubmitting.value = false; }
+          runAsync('saveTrans3Data', payload).then(res => { if (res === "SUCCESS") { addSyncedData(payload.kode, 'T3', payload.status, new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })); } else { alert("Gagal: " + (res.error || res)); fetchAllData(); } }).catch(err => { alert("Koneksi putus!"); fetchAllData(); }).finally(() => { isSubmitting.value = false; });
         };
 
         const tabs = [
@@ -925,12 +1221,52 @@
           });
         });
 
-        const visibleData = computed(() => filteredData.value.slice(0, displayLimit.value));
+        // === LOGIKA SORTING DATA ===
+        const sortedData = computed(() => {
+          if (!sortKey.value) return filteredData.value;
+          
+          return [...filteredData.value].sort((a, b) => {
+            let valA = a[sortKey.value] || '';
+            let valB = b[sortKey.value] || '';
+            
+            // Konversi ke string dan huruf kecil untuk perbandingan
+            valA = valA.toString().toLowerCase();
+            valB = valB.toString().toLowerCase();
+
+            // Gunakan localeCompare dengan numeric true agar "Rak 2" < "Rak 10"
+            if (sortOrder.value === 'asc') {
+              return valA.localeCompare(valB, undefined, { numeric: true, sensitivity: 'base' });
+            } else {
+              return valB.localeCompare(valA, undefined, { numeric: true, sensitivity: 'base' });
+            }
+          });
+        });
+
+        const visibleData = computed(() => sortedData.value.slice(0, displayLimit.value));
         const sliderStyle = computed(() => { const val = formData.persentase || 0; return { background: `linear-gradient(to right, #B2D5E5 ${val}%, rgba(255, 255, 255, 0.1) ${val}%)` }; });
 
-        watch([activeTab, searchQuery], () => { displayLimit.value = 15; nextTick(() => { if (mainContainer.value) mainContainer.value.scrollTop = 0; }); });
+        const changeSort = (key) => {
+          if (sortKey.value === key) {
+            // Jika klik kolom yang sama, balikkan urutannya
+            sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc';
+          } else {
+            // Jika ganti kolom, set ke asc (A-Z / 1-10)
+            sortKey.value = key;
+            sortOrder.value = 'asc';
+          }
+          nextTick(() => { if (mainContainer.value) mainContainer.value.scrollTop = 0; });
+        };
+
+        watch([activeTab, searchQuery], () => { 
+          displayLimit.value = 15; 
+          // Reset sorting ke default saat pindah tab atau search
+          sortKey.value = 'rak'; 
+          sortOrder.value = 'asc'; 
+          nextTick(() => { if (mainContainer.value) mainContainer.value.scrollTop = 0; }); 
+        });
+        
         const changeTab = (tabId) => { activeTab.value = tabId; searchQuery.value = ''; };
-        const handleScroll = (e) => { const { scrollTop, scrollHeight, clientHeight } = e.target; if (scrollHeight - (scrollTop + clientHeight) < 50) { if (displayLimit.value < filteredData.value.length) displayLimit.value += 5; } };
+        const handleScroll = (e) => { const { scrollTop, scrollHeight, clientHeight } = e.target; if (scrollHeight - (scrollTop + clientHeight) < 50) { if (displayLimit.value < sortedData.value.length) displayLimit.value += 5; } };
 
         const getStatusClass = (status) => {
           if (!status) return 'bg-gray-500/10 text-gray-400 border-gray-500/20'; let s = status.toUpperCase();
@@ -944,18 +1280,79 @@
           if (s.includes('BERHASIL')) return 'text-green-400'; if (s.includes('GAGAL') || s.includes('MATIO')) return 'text-red-400'; return 'text-yellow-400';
         };
 
+        // === DIRECTIVE: SWIPE DOWN TO DISMISS ===
+        const vSwipeDown = {
+          mounted(el, binding) {
+            let startY = 0;
+            let isDragging = false;
+            let currentY = 0;
+
+            const handleStart = (e) => {
+              if (e.target.closest('input, textarea, select')) return;
+              startY = e.touches[0].clientY;
+              isDragging = true;
+              el.style.transition = 'none';
+              if (el.scrollTop <= 0) {
+                el.style.touchAction = 'none';
+              }
+            };
+
+            const handleMove = (e) => {
+              if (!isDragging) return;
+              currentY = e.touches[0].clientY;
+              const deltaY = currentY - startY;
+              
+              if (deltaY > 0 && el.scrollTop <= 0) {
+                e.preventDefault(); 
+                el.style.transform = `translateY(${deltaY}px)`;
+                el.style.opacity = Math.max(0.2, 1 - (deltaY / 500));
+              } else if (deltaY < 0) {
+                isDragging = false; 
+                el.style.transform = ''; 
+                el.style.opacity = '';
+                el.style.touchAction = 'pan-y'; 
+              }
+            };
+
+            const handleEnd = (e) => {
+              el.style.touchAction = 'pan-y';
+              if (!isDragging) return;
+              isDragging = false;
+              el.style.transition = '';
+              el.style.transform = '';
+              el.style.opacity = '';
+              
+              const deltaY = e.changedTouches[0].clientY - startY;
+              if (deltaY > 100) {
+                if (typeof binding.value === 'function') binding.value();
+              }
+            };
+
+            el._start = handleStart;
+            el._move = handleMove;
+            el._end = handleEnd;
+
+            el.addEventListener('touchstart', el._start, { passive: true });
+            el.addEventListener('touchmove', el._move, { passive: false });
+            el.addEventListener('touchend', el._end, { passive: true });
+            el.addEventListener('touchcancel', el._end, { passive: true });
+          },
+          unmounted(el) {
+            if (el._start) el.removeEventListener('touchstart', el._start);
+            if (el._move) el.removeEventListener('touchmove', el._move);
+            if (el._end) { el.removeEventListener('touchend', el._end); el.removeEventListener('touchcancel', el._end); }
+          }
+        };
+
         return {
           isAppReady, isLoggedIn, isLoggingIn, isFetching, isSubmitting, loginError, loginForm, handleLogin, confirmLogout,
           currentUser, activeTab, activeTabData, searchQuery, accessibleTabs, mainContainer,
-          visibleData, filteredData, changeTab, handleScroll, getStatusClass, getStatusTextClass,
+          visibleData, filteredData, sortedData, changeSort, sortKey, sortOrder, changeTab, handleScroll, getStatusClass, getStatusTextClass,
           isModalOpen, isLogoutModalOpen, isNotifOpen, isSyncModalOpen, isPertumbuhanOpen, pertumbuhanOptions, selectPertumbuhan,
           recentActivities, hasUnreadNotifs, openNotifications,
           modalContext, modalTitle, formError, formData, sliderStyle, increment, decrement,
           openFormModal, closeModal, handleFileUpload, submitMonitoringForm, submitTrans3Form,
-          syncedData, getTabColor,
-          // Swipe Handlers & Refs
-          formSheet, formBackdrop, syncSheet, syncBackdrop, notifSheet, notifBackdrop, logoutSheet, logoutBackdrop,
-          onTouchStart, onTouchMove, onTouchEnd
+          syncedData, getTabColor, vSwipeDown
         };
       }
     }).mount('#app');
