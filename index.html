@@ -3,21 +3,26 @@
 <head>
     <link rel="manifest" href="manifest.json" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TAMBAHAN: viewport-fit=cover wajib diaktifkan di sini -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Aplikasi Google Script Saya</title>
     <style>
-        /* Menghilangkan margin bawaan browser */
+        /* Menghilangkan margin bawaan browser dan mengunci posisi penuh */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Mencegah scrollbar ganda */
+            overflow: hidden;
             background-color: #ffffff;
+            position: fixed; /* Membantu iOS mengunci layar penuh */
         }
 
-        /* Mengatur iframe agar memenuhi layar penuh */
+        /* Mengatur iframe agar benar-benar menembus safe area */
         iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
@@ -27,7 +32,10 @@
 </head>
 <body>
 
-    <iframe src="https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec" allowfullscreen>
+    <!-- TAMBAHAN: Mengizinkan semua fitur fullscreen masuk ke iframe -->
+    <iframe src="https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec" 
+            allow="fullscreen; autoplay; camera; microphone" 
+            allowfullscreen>
         Browser Anda tidak mendukung iframe. Silakan buka tautan langsung berikut: 
         <a href="https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec">Klik di sini</a>.
     </iframe>
