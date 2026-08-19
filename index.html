@@ -1,34 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     
-    <!-- 1. WAJIB: Meta tag untuk iOS agar bisa fullscreen (Add to Home Screen) -->
+    <!-- === PWA & ICONS === -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="./favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    
+    <!-- === META TAGS PWA (Agar Fullscreen & Anti-Notch) === -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-title" content="MONTRANS" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Aplikasi Saya">
-
-    <!-- 2. Viewport dengan user-scalable=no agar tidak bisa di-zoom (opsional tapi disarankan untuk PWA) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0047ff">
     
-    <title>Aplikasi Google Script Saya</title>
-    
-    <!-- Pastikan path manifest.json benar. Jika di root repo GitHub, gunakan ./manifest.json -->
-    <link rel="manifest" href="./manifest.json" />
+    <title>MONITORING TRANS</title>
     
     <style>
-        html, body {
+        /* Reset & Fullscreen Base */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #ffffff;
-            position: fixed; 
-            /* Tambahan untuk iOS 11+ dengan notch */
-            env(safe-area-inset-top, 0px);
-            env(safe-area-inset-bottom, 0px);
+            background-color: #f4f2ed; /* Disamakan dengan background aplikasi Anda */
+            position: fixed; /* Mengunci layar di iOS */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        iframe {
+        /* Iframe Fullscreen */
+        #app-iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -36,6 +47,172 @@
             height: 100%;
             border: none;
             display: block;
+            background-color: #f4f2ed;
+            z-index: 10;
+        }
+
+        /* Loading State (Saat iframe sedang dimuat) */
+        #loading-screen {
+            position: absolute;
+            inset: 0;
+            background-color: #f4f2ed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            transition: opacity 0.5s ease;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(0, 71, 255, 0.1);
+            border-top-color: #0047ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 16px;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 14px;
+            color: #0a0f1c;
+            font-weight: 500;
+        }
+
+        /* Fallback Message (Jika iframe diblokir browser) */
+        #fallback-message {
+            position: absolute;
+            inset: 0;
+            background-color: #f4f2ed;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            z-index: 30;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        #fallback-message.visible {
+            display: flex;
+        }
+
+        .fallback-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0a0f1c;
+            margin-bottom: 12px;
+        }
+
+        .fallback-desc {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .fallback-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background-color: #0047ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .fallback-btn:hover {
+            background-color: #0038cc;
         }
     </style>
 </head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p class="loading-text">Memuat Aplikasi Monitoring...</p>
+    </div>
+
+    <!-- Iframe Google Apps Script -->
+    <iframe 
+        id="app-iframe"
+        src="https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec" 
+        allow="fullscreen; autoplay; camera; microphone; geolocation" 
+        allowfullscreen
+        loading="eager"
+        onload="hideLoading()">
+    </iframe>
+
+    <!-- Fallback Message (Jika iframe blank/diblokir) -->
+    <div id="fallback-message">
+        <h2 class="fallback-title">⚠️ Aplikasi Tidak Dapat Dimuat</h2>
+        <p class="fallback-desc">
+            Browser Anda mungkin memblokir konten dari domain lain.<br>
+            Silakan klik tombol di bawah untuk membuka aplikasi secara langsung.
+        </p>
+        <a href="https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec" class="fallback-btn">
+            Buka Aplikasi Langsung
+        </a>
+    </div>
+
+    <script>
+        // Fungsi untuk menyembunyikan loading screen saat iframe selesai dimuat
+        function hideLoading() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.classList.add('hidden');
+            }
+            
+            // Deteksi jika iframe blank setelah 3 detik (kemungkinan diblokir)
+            setTimeout(function() {
+                const iframe = document.getElementById('app-iframe');
+                // Catatan: Karena cross-origin, kita tidak bisa mengecek isi iframe secara langsung.
+                // Tapi jika loading screen sudah hilang dan user melihat blank, mereka bisa gunakan fallback.
+            }, 3000);
+        }
+
+        // Fallback otomatis jika iframe gagal dimuat dalam 5 detik
+        setTimeout(function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const fallbackMessage = document.getElementById('fallback-message');
+            
+            // Jika loading screen masih terlihat setelah 5 detik, kemungkinan ada masalah
+            if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+                loadingScreen.classList.add('hidden');
+                fallbackMessage.classList.add('visible');
+            }
+        }, 5000);
+
+        // Fullscreen API (Opsional: untuk tombol fullscreen jika diperlukan)
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
