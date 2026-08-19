@@ -1,13 +1,20 @@
-<!DOCTYPE html>
-<html lang="id">
 <head>
-    <link rel="manifest" href="manifest.json" />
     <meta charset="UTF-8">
-    <!-- TAMBAHAN: viewport-fit=cover wajib diaktifkan di sini -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <!-- 1. WAJIB: Meta tag untuk iOS agar bisa fullscreen (Add to Home Screen) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Aplikasi Saya">
+
+    <!-- 2. Viewport dengan user-scalable=no agar tidak bisa di-zoom (opsional tapi disarankan untuk PWA) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
     <title>Aplikasi Google Script Saya</title>
+    
+    <!-- Pastikan path manifest.json benar. Jika di root repo GitHub, gunakan ./manifest.json -->
+    <link rel="manifest" href="./manifest.json" />
+    
     <style>
-        /* Menghilangkan margin bawaan browser dan mengunci posisi penuh */
         html, body {
             margin: 0;
             padding: 0;
@@ -15,10 +22,12 @@
             height: 100%;
             overflow: hidden;
             background-color: #ffffff;
-            position: fixed; /* Membantu iOS mengunci layar penuh */
+            position: fixed; 
+            /* Tambahan untuk iOS 11+ dengan notch */
+            env(safe-area-inset-top, 0px);
+            env(safe-area-inset-bottom, 0px);
         }
 
-        /* Mengatur iframe agar benar-benar menembus safe area */
         iframe {
             position: absolute;
             top: 0;
@@ -30,15 +39,3 @@
         }
     </style>
 </head>
-<body>
-
-    <!-- TAMBAHAN: Mengizinkan semua fitur fullscreen masuk ke iframe -->
-    <iframe src="https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec" 
-            allow="fullscreen; autoplay; camera; microphone" 
-            allowfullscreen>
-        Browser Anda tidak mendukung iframe. Silakan buka tautan langsung berikut: 
-        <a href="https://script.google.com/macros/s/AKfycbznAJNV9UvoidGiC82TER8-5eQXfci1019FSNAmfpXElICjjpOwqPgx-wyWALELmzNlKw/exec">Klik di sini</a>.
-    </iframe>
-
-</body>
-</html>
